@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.davidma.runicarcanology.block.ArcaneWorkbench;
 import cn.davidma.runicarcanology.block.template.StandardBlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -15,7 +16,7 @@ public class RABlocks {
 	private static Map<String, Block> blocks;
 	
 	public static void instatiateAllBlocks() {
-		new StandardBlockBase("arcane_altar", Material.IRON);
+		new ArcaneWorkbench("arcane_workbench");
 	}
 	
 	public static void addBlock(String name, Block block) {
