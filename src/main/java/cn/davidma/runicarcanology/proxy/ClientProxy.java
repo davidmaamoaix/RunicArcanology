@@ -2,7 +2,7 @@ package cn.davidma.runicarcanology.proxy;
 
 import cn.davidma.runicarcanology.reference.Info;
 import cn.davidma.runicarcanology.registry.RAItems;
-import cn.davidma.runicarcanology.render.ArcaneWorkbenchTESR;
+import cn.davidma.runicarcanology.render.tesr.ArcaneWorkbenchTESR;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

@@ -1,4 +1,4 @@
-package cn.davidma.runicarcanology.render;
+package cn.davidma.runicarcanology.render.tesr;
 
 import org.lwjgl.opengl.GL11;
 
