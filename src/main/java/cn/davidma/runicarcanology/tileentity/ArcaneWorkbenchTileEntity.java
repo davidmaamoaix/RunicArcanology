@@ -3,6 +3,9 @@ package cn.davidma.runicarcanology.tileentity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ArcaneWorkbenchTileEntity extends TileEntity implements ITickable {
 
@@ -15,8 +18,12 @@ public class ArcaneWorkbenchTileEntity extends TileEntity implements ITickable {
 	
 	@Override
 	public void update() {
-		this.animationTick++;
-		this.animationTick %= 7200;
+		
+		// Animations only update on client.
+		if (this.world.isRemote) {
+			this.animationTick++;
+			this.animationTick %= 7200;
+		}
 	}
 	
 	@Override
@@ -27,6 +34,12 @@ public class ArcaneWorkbenchTileEntity extends TileEntity implements ITickable {
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		return super.writeToNBT(nbt);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public AxisAlignedBB getRenderBoundingBox() {
+		return new AxisAlignedBB(this.getPos(), this.getPos().add(1, 3, 1));
 	}
 	
 	public int getAnimationTick() {
