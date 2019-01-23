@@ -2,8 +2,10 @@ package cn.davidma.runicarcanology.proxy;
 
 import cn.davidma.runicarcanology.reference.Info;
 import cn.davidma.runicarcanology.registry.RAItems;
+import cn.davidma.runicarcanology.render.particle.LightParticle;
 import cn.davidma.runicarcanology.render.tesr.ArcaneWorkbenchTESR;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -33,7 +35,7 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		
+		Minecraft.getMinecraft().effectRenderer.registerParticle(0, new LightParticle.Factory());
 	}
 
 	@Override
