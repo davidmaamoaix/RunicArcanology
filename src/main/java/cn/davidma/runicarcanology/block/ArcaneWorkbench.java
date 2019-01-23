@@ -1,7 +1,6 @@
 package cn.davidma.runicarcanology.block;
 
 import cn.davidma.runicarcanology.block.template.TransparentTileEntityBlock;
-import cn.davidma.runicarcanology.render.particle.LightParticle;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
 import cn.davidma.runicarcanology.util.Msg;
 import net.minecraft.block.material.Material;
@@ -12,9 +11,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 
 public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchTileEntity> {
 
@@ -26,11 +27,9 @@ public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchT
 	
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (!world.isRemote) return true;
-		//Client
+		if (world.isRemote) return true;
 		Msg.tellPlayer(player, "Click");
-		Particle light = new LightParticle.Factory().createParticle(0, world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 0D, 0D, 0D);
-		Minecraft.getMinecraft().effectRenderer.addEffect(light);
+		// ((WorldServer) world).spawnParticle(EnumParticleTypes.PORTAL, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 10, 0, 0, 0, 0, null);
 		return true;
 	}
 	

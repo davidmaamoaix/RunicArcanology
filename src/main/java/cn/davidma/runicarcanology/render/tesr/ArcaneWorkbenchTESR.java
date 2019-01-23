@@ -3,6 +3,8 @@ package cn.davidma.runicarcanology.render.tesr;
 import org.lwjgl.opengl.GL11;
 
 import cn.davidma.runicarcanology.reference.Info;
+import cn.davidma.runicarcanology.render.animation.AnimationHelper;
+import cn.davidma.runicarcanology.render.animation.Circle;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -36,8 +38,8 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 	private void renderPassive(ArcaneWorkbenchTileEntity te, double x, double y, double z) {
 		ItemStack stack = new ItemStack(Blocks.QUARTZ_BLOCK);
 		IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
-		RenderHelper.enableStandardItemLighting();
-		GlStateManager.enableLighting();
+		
+		AnimationHelper.drawCircle(Circle.DASH_CIRCLE, x, y, z, 5, 1);
 		
 		GlStateManager.pushMatrix();
 		

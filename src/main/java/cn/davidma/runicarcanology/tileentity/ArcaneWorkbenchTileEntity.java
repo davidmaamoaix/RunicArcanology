@@ -39,7 +39,7 @@ public class ArcaneWorkbenchTileEntity extends TileEntity implements ITickable {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
-		return new AxisAlignedBB(this.getPos(), this.getPos().add(1, 3, 1));
+		return new AxisAlignedBB(this.getPos().add(-3, 0, -3), this.getPos().add(3, 3, 3));
 	}
 	
 	public int getAnimationTick() {
