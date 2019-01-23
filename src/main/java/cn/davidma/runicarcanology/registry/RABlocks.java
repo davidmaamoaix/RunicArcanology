@@ -10,6 +10,7 @@ import cn.davidma.runicarcanology.block.template.StandardBlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 
 public class RABlocks {
 

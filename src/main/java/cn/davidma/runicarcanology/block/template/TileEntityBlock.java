@@ -2,6 +2,7 @@ package cn.davidma.runicarcanology.block.template;
 
 import javax.annotation.Nullable;
 
+import cn.davidma.runicarcanology.registry.RATileEntities;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -15,6 +16,7 @@ public abstract class TileEntityBlock<TE extends TileEntity> extends StandardBlo
 	
 	public TileEntityBlock(String name, Material material) {
 		super(name, material);
+		RATileEntities.addTileEntityClass(this.getRegistryName(), this.getTileEntityClass());
 	}
 
 	public TE getTileEntity(IBlockAccess world, BlockPos pos) {
