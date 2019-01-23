@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class AnimationHelper {
 
-	public static void drawCircle(Circle circle, double x, double y, double z, double diameter, double spinSpeed) {
+	public static void drawCircle(Circle circle, double x, double y, double z, double diameter, double time) {
 		
 		// Texture setup.
 		ResourceLocation circleTexture = circle.getTextureLocation();
@@ -20,16 +20,16 @@ public class AnimationHelper {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferBuilder = tessellator.getBuffer();
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(x - 0.5D, y + 0.1D, z - 0.5D);
+		GlStateManager.translate(0.5, 0.1D, 0.5);
 		GlStateManager.disableLighting();
 		GlStateManager.enableBlend();
 		
 		bufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 		
-		bufferBuilder.pos(-diameter/2, 0, -diameter/2).tex(0, 0).endVertex();
-		bufferBuilder.pos(-diameter/2, 0, -diameter/2).tex(0, 1).endVertex();
-		bufferBuilder.pos(+diameter/2, 0, -diameter/2).tex(1, 1).endVertex();
-		bufferBuilder.pos(+diameter/2, 0, -diameter/2).tex(1, 0).endVertex();
+		bufferBuilder.pos(x - diameter/2, y, z - diameter/2).tex(0, 0).endVertex();
+		bufferBuilder.pos(x - diameter/2, y, z + diameter/2).tex(0, 1).endVertex();
+		bufferBuilder.pos(x + diameter/2, y, z + diameter/2).tex(1, 1).endVertex();
+		bufferBuilder.pos(x + diameter/2, y, z - diameter/2).tex(1, 0).endVertex();
 		
 		tessellator.draw();
 		GlStateManager.enableLighting();

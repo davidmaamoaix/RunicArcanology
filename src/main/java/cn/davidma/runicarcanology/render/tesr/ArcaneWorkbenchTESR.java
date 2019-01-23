@@ -39,13 +39,15 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 		ItemStack stack = new ItemStack(Blocks.QUARTZ_BLOCK);
 		IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
 		
-		AnimationHelper.drawCircle(Circle.DASH_CIRCLE, x, y, z, 5, 1);
+		float worldTime = te.getWorld().getTotalWorldTime();
+		
+		AnimationHelper.drawCircle(Circle.DASH_CIRCLE, x, y, z, 2.5, worldTime * 4);
 		
 		GlStateManager.pushMatrix();
 		
 		GlStateManager.translate(x + 0.5D, y + 1.75D, z + 0.5D);
 		GlStateManager.scale(0.25D, 0.25D, 0.25D);
-		GlStateManager.rotate(te.getWorld().getTotalWorldTime() * 4, 0, 1, 0);
+		GlStateManager.rotate(worldTime * 4, 0, 1, 0);
 		GlStateManager.rotate(35, 1, 0, 0);
 		GlStateManager.rotate(45, 0, 0, 1);
 		
