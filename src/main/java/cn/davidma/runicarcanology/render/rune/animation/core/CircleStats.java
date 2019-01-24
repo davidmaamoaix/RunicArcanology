@@ -11,12 +11,13 @@ public class CircleStats {
 	private double rotationSpeed;
 	private double xOffset, yOffset, zOffset;
 
-	public CircleStats(Circle circle, EnumFacing facing, double diameter) {
+	public CircleStats(Circle circle, EnumFacing facing, double rotationSpeed, double diameter) {
 		this.xOffset = 0;
 		this.yOffset = 0;
 		this.zOffset = 0;
 		this.circle = circle;
 		this.facing = facing;
+		this.rotationSpeed = rotationSpeed;
 		this.diameter = diameter;
 	}
 	
