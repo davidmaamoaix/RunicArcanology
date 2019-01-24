@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.relauncher.Side;
@@ -41,7 +42,7 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 		
 		float worldTime = te.getWorld().getTotalWorldTime();
 		
-		AnimationHelper.drawCircle(Circle.DASH_CIRCLE, x, y, z, 2.5, worldTime * 4);
+		AnimationHelper.drawCircle(Circle.DASH_CIRCLE, x, y, z, 2, worldTime * 2, EnumFacing.EAST);
 		
 		GlStateManager.pushMatrix();
 		
