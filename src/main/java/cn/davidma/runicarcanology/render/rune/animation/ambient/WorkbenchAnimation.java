@@ -7,7 +7,7 @@ import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import net.minecraft.util.EnumFacing;
 
 public class WorkbenchAnimation extends RuneAnimation {
-
+	
 	public WorkbenchAnimation() {
 		CircleStats base = new CircleStats(Circle.RUNE_CIRCLE, EnumFacing.UP, -2, 2);
 		base.setxOffset(0.5);

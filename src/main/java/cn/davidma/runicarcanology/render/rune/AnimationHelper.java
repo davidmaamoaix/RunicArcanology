@@ -13,7 +13,7 @@ public class AnimationHelper {
 	
 	public static double DISTINCTION_OFFSET = 1e-3;
 
-	public static void drawSingleSidedCircle(Circle circle, double x, double y, double z, double diameter, double time, EnumFacing facing) {
+	public static void drawSingleSidedCircle(Circle circle, double x, double y, double z, double diameter, double time, EnumFacing facing, float[] color) {
 		
 		// Texture setup.
 		ResourceLocation circleTexture = circle.getTextureLocation();
@@ -26,6 +26,8 @@ public class AnimationHelper {
 		GlStateManager.translate(0, 0, 0);
 		GlStateManager.disableLighting();
 		GlStateManager.enableBlend();
+		GlStateManager.enableColorLogic();
+		if (color.length == 3) GlStateManager.color(color[0], color[1], color[2]);
 		
 		// Hypotenuse.
 		double radius = diameter / 2;
@@ -58,13 +60,14 @@ public class AnimationHelper {
 		}
 		
 		tessellator.draw();
+		GlStateManager.disableColorLogic();
 		GlStateManager.enableLighting();
 		GlStateManager.disableBlend();
 		GlStateManager.popMatrix();
 	}
 	
-	public static void drawCircle(Circle circle, double x, double y, double z, double diameter, double time, EnumFacing facing) {
-		drawSingleSidedCircle(circle, x, y, z, diameter, time, facing);
-		drawSingleSidedCircle(circle, x, y, z, diameter, time, facing.getOpposite());
+	public static void drawCircle(Circle circle, double x, double y, double z, double diameter, double time, EnumFacing facing, float[] color) {
+		drawSingleSidedCircle(circle, x, y, z, diameter, time, facing, color);
+		drawSingleSidedCircle(circle, x, y, z, diameter, time, facing.getOpposite(), color);
 	}
 }

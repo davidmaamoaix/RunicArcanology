@@ -16,7 +16,7 @@ public class SingleUseRuneAnimation extends RuneAnimation {
 		super();
 		this.animationLength = animationLength;
 		currTime = 0;
-		expired = false;
+		expired = true;
 	}
 	
 	@Override
@@ -25,6 +25,10 @@ public class SingleUseRuneAnimation extends RuneAnimation {
 		super.tick(x, y, z, time);
 		currTime++;
 		if (currTime >= animationLength) this.setExpired();
+	}
+	
+	public void play() {
+		this.expired = false;
 	}
 	
 	public void setExpired() {

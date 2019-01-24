@@ -25,7 +25,8 @@ public class RuneAnimation {
 			double newX = x + i.getxOffset();
 			double newY = y + i.getyOffset();
 			double newZ = z + i.getzOffset();
-			AnimationHelper.drawCircle(circle, newX, newY, newZ, diameter, time * rotationSpeed, facing);
+			float[] color = i.getColor();
+			AnimationHelper.drawCircle(circle, newX, newY, newZ, diameter, time * rotationSpeed, facing, color);
 		}
 	}
 }

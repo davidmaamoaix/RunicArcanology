@@ -28,8 +28,11 @@ public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchT
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (world.isRemote) return true;
-		Msg.tellPlayer(player, "Click");
-		// ((WorldServer) world).spawnParticle(EnumParticleTypes.PORTAL, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 10, 0, 0, 0, 0, null);
+		
+		TileEntity tileEntity = world.getTileEntity(pos);
+		if (tileEntity == null || !(tileEntity instanceof ArcaneWorkbenchTileEntity)) return true;
+		ArcaneWorkbenchTileEntity workbenchTileEntity = (ArcaneWorkbenchTileEntity) tileEntity;
+		workbenchTileEntity.playerClick(player);
 		return true;
 	}
 	

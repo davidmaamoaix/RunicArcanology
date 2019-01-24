@@ -30,13 +30,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkbenchTileEntity> {
 
-	WorkbenchAnimation workbenchAnimation;
+	private WorkbenchAnimation workbenchAnimation;
 	
 	@Override
 	public void render(ArcaneWorkbenchTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		
 		// Check.
-		if (workbenchAnimation == null) workbenchAnimation = new WorkbenchAnimation();
+		if (this.workbenchAnimation == null) this.workbenchAnimation = new WorkbenchAnimation();
 		
 		// Render passive fx.
 		this.renderPassive(te, x, y, z);
@@ -48,7 +48,6 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 		
 		float worldTime = te.getWorld().getTotalWorldTime();
 		
-		// AnimationHelper.drawCircle(Circle.RUNE_CIRCLE, x + 0.5, y + yOffset, z + 0.5, 2, worldTime * 2, EnumFacing.UP);
 		workbenchAnimation.tick(x, y, z, worldTime);
 		
 		GlStateManager.pushMatrix();
