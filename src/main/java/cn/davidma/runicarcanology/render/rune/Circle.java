@@ -1,10 +1,10 @@
-package cn.davidma.runicarcanology.render.animation;
+package cn.davidma.runicarcanology.render.rune;
 
 import cn.davidma.runicarcanology.reference.Info;
 import net.minecraft.util.ResourceLocation;
 
 public enum Circle {
-	DASH_CIRCLE("dash_circle");
+	DASH_CIRCLE("dash_circle"), RUNE_CIRCLE("rune_circle");
 	
 	private ResourceLocation texture;
 	

@@ -3,8 +3,8 @@ package cn.davidma.runicarcanology.render.tesr;
 import org.lwjgl.opengl.GL11;
 
 import cn.davidma.runicarcanology.reference.Info;
-import cn.davidma.runicarcanology.render.animation.AnimationHelper;
-import cn.davidma.runicarcanology.render.animation.Circle;
+import cn.davidma.runicarcanology.render.rune.AnimationHelper;
+import cn.davidma.runicarcanology.render.rune.Circle;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -42,7 +42,9 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 		
 		float worldTime = te.getWorld().getTotalWorldTime();
 		
-		AnimationHelper.drawCircle(Circle.DASH_CIRCLE, x, y, z, 2, worldTime * 2, EnumFacing.EAST);
+		double yOffset = AnimationHelper.DISTINCTION_OFFSET;
+		
+		AnimationHelper.drawCircle(Circle.RUNE_CIRCLE, x + 0.5, y + yOffset, z + 0.5, 2, worldTime * 2, EnumFacing.UP);
 		
 		GlStateManager.pushMatrix();
 		

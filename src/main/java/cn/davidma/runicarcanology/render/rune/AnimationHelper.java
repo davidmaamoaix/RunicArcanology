@@ -1,4 +1,4 @@
-package cn.davidma.runicarcanology.render.animation;
+package cn.davidma.runicarcanology.render.rune;
 
 import cn.davidma.runicarcanology.reference.Info;
 import net.minecraft.client.Minecraft;
@@ -10,8 +10,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
 public class AnimationHelper {
+	
+	public static double DISTINCTION_OFFSET = 1e-3;
 
-	public static void drawCircle(Circle circle, double x, double y, double z, double diameter, double time, EnumFacing facing) {
+	public static void drawSingleSidedCircle(Circle circle, double x, double y, double z, double diameter, double time, EnumFacing facing) {
 		
 		// Texture setup.
 		ResourceLocation circleTexture = circle.getTextureLocation();
@@ -46,10 +48,10 @@ public class AnimationHelper {
 			switch (facing) {
 				case UP: break; // Do nothing.
 				case DOWN: temp = newX; newX = newZ; newZ = temp; break; // newX, newY, newZ = z, y, x.
-				case NORTH: temp = newX; newX = newY; newY = newZ; newZ = temp; break; // newX, newY, newZ = y, z, x.
+				case WEST: temp = newX; newX = newY; newY = newZ; newZ = temp; break; // newX, newY, newZ = y, z, x.
 				case SOUTH: temp = newY; newY = newZ; newZ = temp; break; // newX, newY, newZ = x, z, y.
-				case EAST: temp = newZ; newZ = newY; newY = newX; newX = temp; break; // newX, newY, newZ = z, x, y.
-				case WEST: temp = newX; newX = newY; newY = temp; // newX, newY, newZ = y, x, z
+				case NORTH: temp = newZ; newZ = newY; newY = newX; newX = temp; break; // newX, newY, newZ = z, x, y.
+				case EAST: temp = newX; newX = newY; newY = temp; // newX, newY, newZ = y, x, z
 			}
 			
 			bufferBuilder.pos(x + newX, y + newY, z + newZ).tex(vertPos[i][0], vertPos[i][1]).endVertex();
@@ -59,5 +61,10 @@ public class AnimationHelper {
 		GlStateManager.enableLighting();
 		GlStateManager.disableBlend();
 		GlStateManager.popMatrix();
+	}
+	
+	public static void drawCircle(Circle circle, double x, double y, double z, double diameter, double time, EnumFacing facing) {
+		drawSingleSidedCircle(circle, x, y, z, diameter, time, facing);
+		drawSingleSidedCircle(circle, x, y, z, diameter, time, facing.getOpposite());
 	}
 }
