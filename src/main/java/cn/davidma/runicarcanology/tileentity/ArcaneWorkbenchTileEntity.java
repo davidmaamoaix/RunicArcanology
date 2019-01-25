@@ -42,13 +42,12 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity implements
 			Msg.tellPlayer(player, I18n.format("error.workbench_space.key"));
 		} else {
 			IItemHandler itemHandler = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
-			Msg.tellPlayer(player, Integer.toString(collidingEntity.size()));
 			for (Entity i: collidingEntity) {
 				if (i instanceof EntityItem) {
 					EntityItem item = ((EntityItem) i);
-					Msg.tellPlayer(player, ((EntityItem) i).getItem().getDisplayName());
 				}
 			}
+			this.playAnimation(EnumRune.CRAFTING_START);
 		}
 	}
 	

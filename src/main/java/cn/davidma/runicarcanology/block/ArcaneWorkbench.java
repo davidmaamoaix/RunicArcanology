@@ -5,6 +5,7 @@ import java.util.List;
 import cn.davidma.runicarcanology.block.template.TransparentTileEntityBlock;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
 import cn.davidma.runicarcanology.util.Msg;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -26,7 +27,6 @@ public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchT
 		super(name, Material.IRON);
 		this.setResistance(6000);
 		this.setHardness(25);
-		this.setLightLevel(8);
 		this.BOUNDING_BOX = new AxisAlignedBB(0, 0, 0, 1, 0.1875D, 1);
 		this.COLLISION_BOX = new AxisAlignedBB(0, 0, 0, 1, 0.125D, 1);
 	}

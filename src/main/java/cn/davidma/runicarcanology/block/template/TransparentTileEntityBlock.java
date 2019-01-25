@@ -20,7 +20,7 @@ public abstract class TransparentTileEntityBlock<TE extends TileEntity> extends 
 
 	public TransparentTileEntityBlock(String name, Material material) {
 		super(name, material);
-		this.setLightOpacity(0);
+		this.setLightOpacity(1);
 	}
 	
 	@Override
