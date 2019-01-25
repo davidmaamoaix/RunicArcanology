@@ -3,12 +3,15 @@ package cn.davidma.runicarcanology.render.rune;
 import cn.davidma.runicarcanology.reference.Info;
 import net.minecraft.util.ResourceLocation;
 
-public enum Circle {
-	DASH_CIRCLE("dash_circle"), RUNE_CIRCLE("rune_circle");
+public enum EnumCircle {
+	
+	DASH_CIRCLE("dash_circle"),
+	RUNE_CIRCLE("rune_circle"),
+	SQUARE("square");
 	
 	private ResourceLocation texture;
 	
-	private Circle(String baseName) {
+	private EnumCircle(String baseName) {
 		this.texture = new ResourceLocation(Info.MOD_ID, String.format("textures/blocks/%s.png", baseName));
 	}
 	

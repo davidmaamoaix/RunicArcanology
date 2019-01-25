@@ -3,7 +3,7 @@ package cn.davidma.runicarcanology.render.rune.animation.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.davidma.runicarcanology.render.rune.Circle;
+import cn.davidma.runicarcanology.render.rune.EnumCircle;
 
 public class SingleUseRuneAnimation extends RuneAnimation {
 
@@ -15,20 +15,23 @@ public class SingleUseRuneAnimation extends RuneAnimation {
 	public SingleUseRuneAnimation(int animationLength) {
 		super();
 		this.animationLength = animationLength;
-		currTime = 0;
-		expired = true;
+		this.currTime = 0;
+		this.expired = true;
 	}
 	
 	@Override
 	public void tick(double x, double y, double z, double time) {
-		if (expired) return;
+		if (this.expired) return;
 		super.tick(x, y, z, time);
-		currTime++;
-		if (currTime >= animationLength) this.setExpired();
+		this.currTime++;
+		if (this.currTime >= this.animationLength) this.setExpired();
 	}
 	
 	public void play() {
-		this.expired = false;
+		if (this.expired) {
+			this.expired = false;
+			this.currTime = 0;
+		}
 	}
 	
 	public void setExpired() {

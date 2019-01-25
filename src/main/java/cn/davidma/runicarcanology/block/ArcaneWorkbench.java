@@ -24,6 +24,9 @@ public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchT
 
 	public ArcaneWorkbench(String name) {
 		super(name, Material.IRON);
+		this.setResistance(6000);
+		this.setHardness(25);
+		this.setLightLevel(8);
 		this.BOUNDING_BOX = new AxisAlignedBB(0, 0, 0, 1, 0.1875D, 1);
 		this.COLLISION_BOX = new AxisAlignedBB(0, 0, 0, 1, 0.125D, 1);
 	}

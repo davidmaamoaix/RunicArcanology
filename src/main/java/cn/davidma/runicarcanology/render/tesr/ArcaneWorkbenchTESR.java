@@ -4,8 +4,9 @@ import org.lwjgl.opengl.GL11;
 
 import cn.davidma.runicarcanology.reference.Info;
 import cn.davidma.runicarcanology.render.rune.AnimationHelper;
-import cn.davidma.runicarcanology.render.rune.Circle;
+import cn.davidma.runicarcanology.render.rune.EnumCircle;
 import cn.davidma.runicarcanology.render.rune.animation.ambient.WorkbenchAnimation;
+import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
 import net.minecraft.block.BlockPressurePlate;
 import net.minecraft.client.Minecraft;
@@ -30,14 +31,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkbenchTileEntity> {
-
-	private WorkbenchAnimation workbenchAnimation;
 	
 	@Override
 	public void render(ArcaneWorkbenchTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-		
-		// Check.
-		if (this.workbenchAnimation == null) this.workbenchAnimation = new WorkbenchAnimation();
 		
 		// Render passive fx.
 		this.renderPassive(te, x, y, z);
@@ -49,7 +45,10 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 		
 		float worldTime = te.getWorld().getTotalWorldTime();
 		
-		workbenchAnimation.tick(x, y, z, worldTime);
+		// Tick animations.
+		for (RuneAnimation i: te.getAnimations()) {
+			i.tick(x, y, z, worldTime);
+		}
 		
 		GlStateManager.pushMatrix();
 		

@@ -1,5 +1,7 @@
 package cn.davidma.runicarcanology.render.rune;
 
+import org.lwjgl.opengl.GL11;
+
 import cn.davidma.runicarcanology.reference.Info;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -13,7 +15,7 @@ public class AnimationHelper {
 	
 	public static double DISTINCTION_OFFSET = 1e-3;
 
-	public static void drawSingleSidedCircle(Circle circle, double x, double y, double z, double diameter, double time, EnumFacing facing, float[] color) {
+	public static void drawSingleSidedCircle(EnumCircle circle, double x, double y, double z, double diameter, double time, EnumFacing facing, float[] color) {
 		
 		// Texture setup.
 		ResourceLocation circleTexture = circle.getTextureLocation();
@@ -26,8 +28,8 @@ public class AnimationHelper {
 		GlStateManager.translate(0, 0, 0);
 		GlStateManager.disableLighting();
 		GlStateManager.enableBlend();
-		GlStateManager.enableColorLogic();
-		if (color.length == 3) GlStateManager.color(color[0], color[1], color[2]);
+		if (color.length == 3) GL11.glColor4f(color[0], color[1], color[2], 1);
+		if (color.length == 4) GL11.glColor4f(color[0], color[1], color[2], color[3]);
 		
 		// Hypotenuse.
 		double radius = diameter / 2;
@@ -60,14 +62,18 @@ public class AnimationHelper {
 		}
 		
 		tessellator.draw();
-		GlStateManager.disableColorLogic();
+		GL11.glColor4f(1, 1, 1, 1);
 		GlStateManager.enableLighting();
 		GlStateManager.disableBlend();
 		GlStateManager.popMatrix();
 	}
 	
-	public static void drawCircle(Circle circle, double x, double y, double z, double diameter, double time, EnumFacing facing, float[] color) {
+	public static void drawCircle(EnumCircle circle, double x, double y, double z, double diameter, double time, EnumFacing facing, float[] color) {
 		drawSingleSidedCircle(circle, x, y, z, diameter, time, facing, color);
 		drawSingleSidedCircle(circle, x, y, z, diameter, time, facing.getOpposite(), color);
+	}
+	
+	public static double oscillate(double time, double min, double max) {
+		return min + (Math.sin(Math.toRadians(time)) + 1) / 2 * (max - min);
 	}
 }

@@ -2,6 +2,7 @@ package cn.davidma.runicarcanology.tileentity;
 
 import java.util.List;
 
+import cn.davidma.runicarcanology.render.rune.EnumRune;
 import cn.davidma.runicarcanology.util.Msg;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -19,11 +20,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
-public class ArcaneWorkbenchTileEntity extends TileEntity implements ITickable {
+public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity implements ITickable {
 
 	// To control the progress of crafting.
 	private boolean crafting;
 	private int craftingTick;
+	
+	@Override
+	protected void createAnimations() {
+		this.addAnimation(EnumRune.WORKBENCH_PASSIVE);
+		this.addAnimation(EnumRune.CRAFTING_START);
+	}
 	
 	@Override
 	public void update() {
