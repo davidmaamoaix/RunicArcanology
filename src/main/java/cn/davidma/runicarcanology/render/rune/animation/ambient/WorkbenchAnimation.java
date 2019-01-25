@@ -13,6 +13,7 @@ public class WorkbenchAnimation extends RuneAnimation {
 		base.setxOffset(0.5);
 		base.setyOffset(AnimationHelper.DISTINCTION_OFFSET);
 		base.setzOffset(0.5);
+		
 		this.circles.add(base);
 	}
 }

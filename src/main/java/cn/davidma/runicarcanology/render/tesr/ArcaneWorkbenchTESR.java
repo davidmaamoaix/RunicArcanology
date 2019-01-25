@@ -7,6 +7,7 @@ import cn.davidma.runicarcanology.render.rune.AnimationHelper;
 import cn.davidma.runicarcanology.render.rune.Circle;
 import cn.davidma.runicarcanology.render.rune.animation.ambient.WorkbenchAnimation;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
+import net.minecraft.block.BlockPressurePlate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;

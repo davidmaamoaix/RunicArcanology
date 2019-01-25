@@ -1,5 +1,7 @@
 package cn.davidma.runicarcanology.block;
 
+import java.util.List;
+
 import cn.davidma.runicarcanology.block.template.TransparentTileEntityBlock;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
 import cn.davidma.runicarcanology.util.Msg;
@@ -7,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -32,7 +35,12 @@ public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchT
 		TileEntity tileEntity = world.getTileEntity(pos);
 		if (tileEntity == null || !(tileEntity instanceof ArcaneWorkbenchTileEntity)) return true;
 		ArcaneWorkbenchTileEntity workbenchTileEntity = (ArcaneWorkbenchTileEntity) tileEntity;
-		workbenchTileEntity.playerClick(player);
+		
+		// Get all colliding entities.
+		AxisAlignedBB detectBox = new AxisAlignedBB(0, 0, 0, 0.875, 0.875, 0.875).offset(pos);
+		List <? extends Entity > collidingEntities;
+		collidingEntities = world.getEntitiesWithinAABBExcludingEntity((Entity) null, detectBox);
+		workbenchTileEntity.playerClick(player, collidingEntities);
 		return true;
 	}
 	

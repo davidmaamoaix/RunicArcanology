@@ -16,7 +16,7 @@ public class CircleStats {
 		this.xOffset = 0;
 		this.yOffset = 0;
 		this.zOffset = 0;
-		this.color = new float[] {0, 0, 0};
+		this.color = new float[] {1, 1, 1};
 		this.circle = circle;
 		this.facing = facing;
 		this.rotationSpeed = rotationSpeed;
