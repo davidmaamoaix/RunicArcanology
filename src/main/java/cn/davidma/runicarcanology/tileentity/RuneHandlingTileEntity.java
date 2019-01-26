@@ -9,8 +9,9 @@ import cn.davidma.runicarcanology.render.rune.EnumRune;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.SingleUseRuneAnimation;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
 
-public abstract class RuneHandlingTileEntity extends TileEntity {
+public abstract class RuneHandlingTileEntity extends TileEntity implements ITickable {
 
 	protected Map<EnumRune, RuneAnimation> animations;
 	
@@ -28,6 +29,16 @@ public abstract class RuneHandlingTileEntity extends TileEntity {
 		RuneAnimation target = this.animations.get(rune);
 		if (target instanceof SingleUseRuneAnimation) {
 			((SingleUseRuneAnimation) target).play();
+		}
+	}
+	
+	@Override
+	public void update() {
+		for (RuneAnimation i: this.getAnimations()) {
+			if (i instanceof SingleUseRuneAnimation) {
+				SingleUseRuneAnimation animation = ((SingleUseRuneAnimation) i);
+				animation.tick();
+			}
 		}
 	}
 	

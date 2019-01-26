@@ -9,10 +9,10 @@ import net.minecraft.util.EnumFacing;
 
 public class CraftingStartAnimation extends SingleUseRuneAnimation {
 
-	private static final int ANIMATION_LENGTH = 400;
+	private static final int ANIMATION_LENGTH = 200;
 	
-	private static final int START_TICK = 40;
-	private static final int END_TICK = 40;
+	private static final int START_TICK = 15;
+	private static final int END_TICK = 15;
 	private static final float[] CIRCLE_DIAMETER = new float[] {2.75F, 2.75F, 2.75F, 2.75F, 5};
 	
 	public CraftingStartAnimation() {
@@ -27,7 +27,7 @@ public class CraftingStartAnimation extends SingleUseRuneAnimation {
 	}
 	
 	@Override
-	public void tick(double x, double y, double z, double time) {
+	public void draw(double x, double y, double z, double time) {
 		if (this.isExpired()) return;
 		if (this.currTime < START_TICK) {
 			for (int i = 0; i < this.circles.size(); i++) {
@@ -48,6 +48,6 @@ public class CraftingStartAnimation extends SingleUseRuneAnimation {
 				circle.setDiameter(CIRCLE_DIAMETER[i] * (this.animationLength - this.currTime) / END_TICK);
 			}
 		}
-		super.tick(x, y, z, time);
+		super.draw(x, y, z, time);
 	}
 }

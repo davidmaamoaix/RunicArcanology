@@ -47,7 +47,7 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 		
 		// Tick animations.
 		for (RuneAnimation i: te.getAnimations()) {
-			i.tick(x, y, z, worldTime);
+			i.draw(x, y, z, worldTime);
 		}
 		
 		GlStateManager.pushMatrix();

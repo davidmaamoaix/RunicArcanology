@@ -15,7 +15,7 @@ public class RuneAnimation {
 		circles = new ArrayList<CircleStats>();
 	}
 	
-	public void tick(double x, double y, double z, double time) {
+	public void draw(double x, double y, double z, double time) {
 		
 		for(CircleStats i: circles) {
 			EnumCircle circle = i.getCircle();

@@ -11,7 +11,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -20,6 +22,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchTileEntity> {
 
@@ -56,5 +60,21 @@ public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchT
 	@Override
 	public ArcaneWorkbenchTileEntity createTileEntity(World world, IBlockState state) {
 		return new ArcaneWorkbenchTileEntity();
+	}
+	
+	@Override
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+		TileEntity tileEntity = world.getTileEntity(pos);
+		if (tileEntity != null) {
+			IItemHandler itemHandler = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+			for (int i = 0; i < itemHandler.getSlots(); i++) {
+				ItemStack stack = itemHandler.getStackInSlot(i);
+				if (!stack.isEmpty()) {
+					EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+					world.spawnEntity(item);
+				}
+			}
+		}
+		super.breakBlock(world, pos, state);
 	}
 }

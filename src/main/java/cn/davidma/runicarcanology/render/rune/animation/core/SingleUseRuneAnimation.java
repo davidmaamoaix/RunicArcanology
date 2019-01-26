@@ -20,9 +20,12 @@ public class SingleUseRuneAnimation extends RuneAnimation {
 	}
 	
 	@Override
-	public void tick(double x, double y, double z, double time) {
+	public void draw(double x, double y, double z, double time) {
 		if (this.expired) return;
-		super.tick(x, y, z, time);
+		super.draw(x, y, z, time);
+	}
+	
+	public void tick() {
 		this.currTime++;
 		if (this.currTime >= this.animationLength) this.setExpired();
 	}
