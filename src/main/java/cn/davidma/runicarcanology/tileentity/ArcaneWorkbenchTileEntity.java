@@ -2,6 +2,8 @@ package cn.davidma.runicarcanology.tileentity;
 
 import java.util.List;
 
+import cn.davidma.runicarcanology.network.RuneAnimationMessage;
+import cn.davidma.runicarcanology.proxy.CommonProxy;
 import cn.davidma.runicarcanology.render.rune.EnumRune;
 import cn.davidma.runicarcanology.util.Msg;
 import net.minecraft.client.resources.I18n;
@@ -47,7 +49,8 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity implements
 					EntityItem item = ((EntityItem) i);
 				}
 			}
-			this.playAnimation(EnumRune.CRAFTING_START);
+			RuneAnimationMessage runeAnimationMessage = new RuneAnimationMessage(EnumRune.CRAFTING_START, this.pos);
+			CommonProxy.simpleNetworkWrapper.sendToServer(runeAnimationMessage);
 		}
 	}
 	

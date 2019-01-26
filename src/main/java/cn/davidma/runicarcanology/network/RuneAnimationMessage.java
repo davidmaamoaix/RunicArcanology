@@ -1,4 +1,4 @@
-package cn.davidma.runicarcanology.network.client;
+package cn.davidma.runicarcanology.network;
 
 import cn.davidma.runicarcanology.render.rune.EnumRune;
 import io.netty.buffer.ByteBuf;

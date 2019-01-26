@@ -1,5 +1,7 @@
 package cn.davidma.runicarcanology.proxy;
 
+import cn.davidma.runicarcanology.network.RuneAnimationMessage;
+import cn.davidma.runicarcanology.network.handler.ClientMessageHandler;
 import cn.davidma.runicarcanology.reference.Info;
 import cn.davidma.runicarcanology.registry.RAItems;
 import cn.davidma.runicarcanology.render.tesr.ArcaneWorkbenchTESR;
@@ -15,6 +17,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class ClientProxy implements IProxy {
 
@@ -31,6 +34,7 @@ public class ClientProxy implements IProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		this.registerTileEntitySpecialRenderer();
+		CommonProxy.simpleNetworkWrapper.registerMessage(ClientMessageHandler.class, RuneAnimationMessage.class, CommonProxy.ANIMATION_MESSAGE_ID_CLIENT, Side.CLIENT);
 	}
 
 	@Override
