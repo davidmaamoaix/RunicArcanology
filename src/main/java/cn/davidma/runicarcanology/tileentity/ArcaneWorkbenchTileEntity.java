@@ -2,7 +2,9 @@ package cn.davidma.runicarcanology.tileentity;
 
 import java.util.List;
 
-import cn.davidma.runicarcanology.network.RuneAnimationMessage;
+import javax.annotation.Nullable;
+
+import cn.davidma.runicarcanology.network.client.RuneAnimationMessage;
 import cn.davidma.runicarcanology.proxy.CommonProxy;
 import cn.davidma.runicarcanology.render.rune.EnumRune;
 import cn.davidma.runicarcanology.util.Msg;
@@ -10,6 +12,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -17,13 +20,17 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity implements ITickable {
 
+	private ItemStackHandler inventory = new ItemStackHandler(64);
+	
 	// To control the progress of crafting.
 	private boolean crafting;
 	private int craftingTick;
@@ -49,8 +56,10 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity implements
 					EntityItem item = ((EntityItem) i);
 				}
 			}
-			RuneAnimationMessage runeAnimationMessage = new RuneAnimationMessage(EnumRune.CRAFTING_START, this.pos);
-			CommonProxy.simpleNetworkWrapper.sendToServer(runeAnimationMessage);
+			if (player instanceof EntityPlayerMP) {
+				RuneAnimationMessage runeAnimationMessage = new RuneAnimationMessage(EnumRune.CRAFTING_START, this.pos);
+				CommonProxy.simpleNetworkWrapper.sendTo(runeAnimationMessage, (EntityPlayerMP) player);
+			}
 		}
 	}
 	
@@ -68,6 +77,17 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity implements
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		return new AxisAlignedBB(this.getPos().add(-3, 0, -3), this.getPos().add(3, 3, 3));
+	}
+	
+	@Override
+	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+	}
+	
+	@Nullable
+	@Override
+	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T) this.inventory : super.getCapability(capability, facing);
 	}
 	
 	public boolean enoughSpace() {

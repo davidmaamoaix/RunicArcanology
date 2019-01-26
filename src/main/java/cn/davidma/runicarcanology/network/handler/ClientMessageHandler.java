@@ -1,6 +1,6 @@
 package cn.davidma.runicarcanology.network.handler;
 
-import cn.davidma.runicarcanology.network.RuneAnimationMessage;
+import cn.davidma.runicarcanology.network.client.RuneAnimationMessage;
 import cn.davidma.runicarcanology.render.rune.EnumRune;
 import cn.davidma.runicarcanology.tileentity.RuneHandlingTileEntity;
 import net.minecraft.client.Minecraft;
@@ -20,11 +20,6 @@ public class ClientMessageHandler implements IMessageHandler<RuneAnimationMessag
 		// Check.
 		if (ctx.side != Side.CLIENT) {
 			System.err.println("RuneAnimationMessage received on wrong side.");
-			return null;
-		}
-		
-		if (!message.isValid()) {
-			System.err.println("Invalid message.");
 			return null;
 		}
 		

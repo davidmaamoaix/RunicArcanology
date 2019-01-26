@@ -1,8 +1,6 @@
 package cn.davidma.runicarcanology.proxy;
 
-import cn.davidma.runicarcanology.network.RuneAnimationMessage;
-import cn.davidma.runicarcanology.network.handler.ServerMessageHandler;
-import cn.davidma.runicarcanology.network.handler.ServerMessageHandlerDummy;
+import cn.davidma.runicarcanology.network.client.RuneAnimationMessage;
 import cn.davidma.runicarcanology.reference.Info;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -16,7 +14,6 @@ public class CommonProxy implements IProxy {
 
 	public static SimpleNetworkWrapper simpleNetworkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(Info.MOD_ID);
 	
-	public static final byte ANIMATION_MESSAGE_ID_SERVER = 42;
 	public static final byte ANIMATION_MESSAGE_ID_CLIENT = 43;
 	
 	@Override
@@ -27,8 +24,7 @@ public class CommonProxy implements IProxy {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		simpleNetworkWrapper.registerMessage(ServerMessageHandler.class, RuneAnimationMessage.class, ANIMATION_MESSAGE_ID_SERVER, Side.SERVER);
-		simpleNetworkWrapper.registerMessage(ServerMessageHandlerDummy.class, RuneAnimationMessage.class, ANIMATION_MESSAGE_ID_CLIENT, Side.SERVER);
+
 	}
 
 	@Override

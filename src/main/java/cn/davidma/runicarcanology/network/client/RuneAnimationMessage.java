@@ -1,4 +1,4 @@
-package cn.davidma.runicarcanology.network;
+package cn.davidma.runicarcanology.network.client;
 
 import cn.davidma.runicarcanology.render.rune.EnumRune;
 import io.netty.buffer.ByteBuf;
@@ -8,18 +8,16 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
 public class RuneAnimationMessage implements IMessage {
 
-	private boolean valid;
 	private EnumRune runeAnimation;
 	private BlockPos tileEntityPosition;
 	
 	public RuneAnimationMessage(EnumRune runeAnimation, BlockPos tileEntityPosition) {
 		this.runeAnimation = runeAnimation;
 		this.tileEntityPosition = tileEntityPosition;
-		this.valid = true;
 	}
 	
 	public RuneAnimationMessage() {
-		this.valid = false;
+		
 	}
 	
 	public EnumRune getRuneAnimation() {
@@ -28,10 +26,6 @@ public class RuneAnimationMessage implements IMessage {
 	
 	public BlockPos getTileEntityPosition() {
 		return this.tileEntityPosition;
-	}
-	
-	public boolean isValid() {
-		return this.valid;
 	}
 	
 	@Override
@@ -51,11 +45,15 @@ public class RuneAnimationMessage implements IMessage {
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		if (!this.valid) return;
 		buf.writeDouble(this.tileEntityPosition.getX());
 		buf.writeDouble(this.tileEntityPosition.getY());
-		buf.writeDouble(this.tileEntityPosition.getX());
+		buf.writeDouble(this.tileEntityPosition.getZ());
 		buf.writeInt(runeAnimation.ordinal());
 	}
-
+	
+	@Override
+	public String toString() {
+		BlockPos pos = this.tileEntityPosition;
+		return String.format("RuneAnimationMessage[%d, %d, %d]", pos.getX(), pos.getY(), pos.getZ());
+	}
 }

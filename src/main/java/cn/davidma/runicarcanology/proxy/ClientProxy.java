@@ -1,6 +1,6 @@
 package cn.davidma.runicarcanology.proxy;
 
-import cn.davidma.runicarcanology.network.RuneAnimationMessage;
+import cn.davidma.runicarcanology.network.client.RuneAnimationMessage;
 import cn.davidma.runicarcanology.network.handler.ClientMessageHandler;
 import cn.davidma.runicarcanology.reference.Info;
 import cn.davidma.runicarcanology.registry.RAItems;
