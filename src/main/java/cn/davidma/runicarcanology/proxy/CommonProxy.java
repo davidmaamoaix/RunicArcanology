@@ -1,6 +1,7 @@
 package cn.davidma.runicarcanology.proxy;
 
 import cn.davidma.runicarcanology.network.client.RuneAnimationMessage;
+import cn.davidma.runicarcanology.recipes.CraftingHelper;
 import cn.davidma.runicarcanology.reference.Info;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -34,6 +35,6 @@ public class CommonProxy implements IProxy {
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		
+		CraftingHelper.init();
 	}
 }

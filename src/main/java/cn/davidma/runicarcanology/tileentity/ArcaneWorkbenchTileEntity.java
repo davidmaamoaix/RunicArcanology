@@ -7,6 +7,8 @@ import javax.annotation.Nullable;
 
 import cn.davidma.runicarcanology.network.client.RuneAnimationMessage;
 import cn.davidma.runicarcanology.proxy.CommonProxy;
+import cn.davidma.runicarcanology.recipes.CraftingHelper;
+import cn.davidma.runicarcanology.reference.Settings;
 import cn.davidma.runicarcanology.render.rune.EnumRune;
 import cn.davidma.runicarcanology.util.Msg;
 import cn.davidma.runicarcanology.util.NBTHelper;
@@ -32,10 +34,9 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 
-	private static int MAX_INV_SIZE = 64;
+	private static int MAX_INV_SIZE = 128;
 	
 	private ItemStackHandler inventory = new ItemStackHandler(MAX_INV_SIZE);
-	private List<ItemStack> animationItems = new ArrayList<ItemStack>();
 	
 	// To control the progress of crafting.
 	private boolean crafting;
@@ -50,34 +51,54 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 	@Override
 	public void update() {
 		super.update();
+		if (this.crafting) {
+			this.craftingTick++;
+			if (this.craftingTick > Settings.CRAFTING_DURATION) {
+				this.crafting = false;
+				this.onCraftingFinish();
+			}
+		}
 	}
 	
 	public void playerClick(EntityPlayer player, List<? extends Entity> collidingEntity) {
 		if (!this.enoughSpace()) {
 			Msg.tellPlayer(player, I18n.format("error.workbench_space.key"));
 		} else {
+			this.clearInventory();
 			IItemHandler itemHandler = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+			
 			int index = 0;
+			List<ItemStack> ingredients = new ArrayList<ItemStack>();
 			for (Entity entity: collidingEntity) {
 				if (entity instanceof EntityItem) {
 					
-					// Flatten inventory so that one slot only contains one item.
-					this.clearInventory();
 					ItemStack stack = ((EntityItem) entity).getItem();
-					this.inventory.insertItem(index++, stack, false);
+					ItemStack newStack = stack.copy();
+					newStack.setCount(1);
+					for (int i = 0; i < stack.getCount(); i++) {
+						this.inventory.insertItem(index++, newStack.copy(), false);
+						ingredients.add(newStack.copy());
+					}
 					entity.setDead();
 				}
 			}
 			
-			// Add to animation items.
-			for (int i = 0; i < this.inventory.getSlots(); i++) {
-				ItemStack stack = this.inventory.getStackInSlot(i);
-				if (!stack.isEmpty()) {
-					for (int j = 0; j < stack.getCount(); j++) {
-						this.animationItems.add(new ItemStack(stack.getItem()));
-					}
+			// Throw items back if invalid recipe.
+			ItemStack output = CraftingHelper.getCraftingResult(ingredients);
+			if (output.isEmpty()) {
+				Msg.tellPlayer(player, I18n.format("error.invalid_recipe.key"));
+				
+				// Biu biu biu!
+				for (ItemStack i: ingredients) {
+					EntityItem item = new EntityItem(this.world, this.pos.getX(), this.pos.getY(), this.pos.getZ(), i);
+					this.world.spawnEntity(item);
 				}
+				
+				this.clearInventory();
+				
+				return;
 			}
+			
 			
 			if (player instanceof EntityPlayerMP) {
 				RuneAnimationMessage runeAnimationMessage = new RuneAnimationMessage(EnumRune.CRAFTING_START, this.pos);
@@ -86,6 +107,17 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 			
 			this.markDirty();
 		}
+	}
+	
+	private void startCrafting() {
+		if (!this.crafting) {
+			this.crafting = true;
+			this.craftingTick = 0;
+		}
+	}
+	
+	private void onCraftingFinish() {
+		
 	}
 	
 	@Override
