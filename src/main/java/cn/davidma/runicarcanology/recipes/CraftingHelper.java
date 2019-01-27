@@ -1,5 +1,6 @@
 package cn.davidma.runicarcanology.recipes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.init.Items;
@@ -15,6 +16,7 @@ public class CraftingHelper {
 	}
 	
 	public static ItemStack getCraftingResult(List<ItemStack> ingredients) {
+		if (workbenchRecipes == null) init();
 		for (WorkbenchRecipe i: workbenchRecipes) {
 			if (i.match(ingredients)) {
 				return i.getOutput();

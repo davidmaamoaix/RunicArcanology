@@ -90,7 +90,9 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 				
 				// Biu biu biu!
 				for (ItemStack i: ingredients) {
-					EntityItem item = new EntityItem(this.world, this.pos.getX(), this.pos.getY(), this.pos.getZ(), i);
+					double x = this.pos.getX() + 0.5;
+					double z = this.pos.getZ() + 0.5;
+					EntityItem item = new EntityItem(this.world, x, this.pos.getY(), z, i);
 					this.world.spawnEntity(item);
 				}
 				
