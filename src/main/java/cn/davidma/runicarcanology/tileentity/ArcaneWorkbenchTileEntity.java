@@ -20,6 +20,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -42,6 +44,9 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 	private boolean isCrafting;
 	private int craftingTick;
 	
+	// To store temporary ingredients (Client-side only).
+	private List<ItemStack> tempIngredients;
+	
 	@Override
 	protected void createAnimations() {
 		this.addPassiveAnimation(EnumRune.WORKBENCH_PASSIVE);
@@ -51,11 +56,12 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 	public void update() {
 		if (this.world.isRemote) {
 			super.update();
+			this.craftingTick++;
 		} else {
 			if (this.isCrafting) {
 				this.craftingTick++;
 				if (this.craftingTick > Settings.CRAFTING_DURATION) {
-					this.onCraftingFinish();
+					this.stopCrafting();
 				}
 			}
 		}
@@ -107,8 +113,6 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 			}
 			
 			this.startCrafting();
-			
-			this.save();
 		}
 	}
 	
@@ -120,11 +124,11 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 		}
 	}
 	
-	private void onCraftingFinish() {
+	private void stopCrafting() {
 		this.isCrafting = false;
 		this.throwStack(CraftingHelper.getCraftingResult(this.getIngredients()));
-		System.out.println("Finish");
 		this.clearInventory();
+		this.tempIngredients = null;
 		this.save();
 	}
 	
@@ -138,12 +142,16 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		this.inventory.deserializeNBT(nbt.getCompoundTag(NBTHelper.INVENTORY));
+		this.craftingTick = nbt.getInteger(NBTHelper.CRAFTING_TICK);
+		this.isCrafting = nbt.getBoolean(NBTHelper.IS_CRAFTING);
 		super.readFromNBT(nbt);
 	}
 	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		nbt.setTag(NBTHelper.INVENTORY, this.inventory.serializeNBT());
+		nbt.setBoolean(NBTHelper.IS_CRAFTING, this.isCrafting);
+		nbt.setInteger(NBTHelper.CRAFTING_TICK, this.craftingTick);
 		return super.writeToNBT(nbt);
 	}
 	
@@ -155,12 +163,14 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 	
 	@Override
 	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+		if (facing != null) return false;
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
 	}
 	
 	@Nullable
 	@Override
 	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+		if (facing != null) return null;
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T) this.inventory : super.getCapability(capability, facing);
 	}
 	
@@ -184,20 +194,22 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 		return this.isCrafting;
 	}
 	
+	public int getCraftingTick() {
+		return this.craftingTick;
+	}
+	
 	public List<ItemStack> getIngredients() {
 		List<ItemStack> stacks = new ArrayList<ItemStack>();
 		for (int i = 0; i < this.inventory.getSlots(); i++) {
-			stacks.add(this.inventory.getStackInSlot(i));
+			ItemStack stack = this.inventory.getStackInSlot(i);
+			if (!stack.isEmpty()) stacks.add(stack);
 		}
 		return stacks;
 	}
 	
-	private void save() {
-		IBlockState state = this.world.getBlockState(this.pos);
-		this.world.markBlockRangeForRenderUpdate(this.pos, this.pos);
-		this.world.notifyBlockUpdate(pos, state, state, 3);
-		this.world.scheduleBlockUpdate(this.pos, this.getBlockType(), 0, 0);
-		this.markDirty();
+	public List<ItemStack> getTempIngredients() {
+		if (this.tempIngredients == null) this.tempIngredients = this.getIngredients();
+		return this.tempIngredients;
 	}
 	
 	private void clearInventory() {

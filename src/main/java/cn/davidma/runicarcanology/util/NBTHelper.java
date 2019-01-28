@@ -7,6 +7,6 @@ public class NBTHelper {
 	
 	// Arcane Workbench.
 	public static String INVENTORY = "inventory";
-	public static String CURR_PROGRESS = "currProgress";
+	public static String CRAFTING_TICK = "craftingTick";
 	public static String IS_CRAFTING = "isCrafting";
 }

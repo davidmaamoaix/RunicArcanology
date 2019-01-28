@@ -14,22 +14,29 @@ public class WorkbenchRecipe {
 		this.output = output;
 		this.ingredients = new ArrayList<ItemStack>();
 		for (ItemStack i: ingredients) {
-			this.ingredients.add(i);
+			ItemStack newStack = i.copy();
+			newStack.setCount(1);
+			for (int j = 0; j < i.getCount(); j++) {
+				this.ingredients.add(newStack);
+			}
 		}
 	}
 	
 	public boolean match(List<ItemStack> stacks) {
-		List<ItemStack> newStacks = new ArrayList<ItemStack>(this.ingredients);
-		for (ItemStack i: stacks) {
-			for (int j = 0; j < newStacks.size(); j++) {
-				if (itemStackMatch(i, newStacks.get(j))) {
-					newStacks.remove(j);
+		List<ItemStack> newIngredients = new ArrayList<ItemStack>(this.ingredients);
+		List<ItemStack> newStacks = new ArrayList<ItemStack>(stacks);
+		for (int i = 0; i < newStacks.size(); i++) {
+			for (int j = 0; j < newIngredients.size(); j++) {
+				if (itemStackMatch(newStacks.get(i), newIngredients.get(j))) {
+					newIngredients.remove(j);
+					newStacks.remove(i);
+					i--;
 					break;
 				}
 			}
 		}
 		
-		return newStacks.isEmpty();
+		return newIngredients.isEmpty() && newStacks.isEmpty();
 	}
 	
 	public ItemStack getOutput() {
@@ -38,6 +45,7 @@ public class WorkbenchRecipe {
 	
 	private static boolean itemStackMatch(ItemStack a, ItemStack b) {
 		if (a.getItem() != b.getItem()) return false;
+		if (a.getCount() != b.getCount()) return false;
 		if (a.getItemDamage() != b.getItemDamage()) return false;
 		return true;
 	}
