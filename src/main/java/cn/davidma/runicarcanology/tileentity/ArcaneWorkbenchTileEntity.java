@@ -39,28 +39,30 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 	private ItemStackHandler inventory = new ItemStackHandler(MAX_INV_SIZE);
 	
 	// To control the progress of crafting.
-	private boolean crafting;
+	private boolean isCrafting;
 	private int craftingTick;
 	
 	@Override
 	protected void createAnimations() {
-		this.addAnimation(EnumRune.WORKBENCH_PASSIVE);
-		this.addAnimation(EnumRune.CRAFTING_START);
+		this.addPassiveAnimation(EnumRune.WORKBENCH_PASSIVE);
 	}
 	
 	@Override
 	public void update() {
-		super.update();
-		if (this.crafting) {
-			this.craftingTick++;
-			if (this.craftingTick > Settings.CRAFTING_DURATION) {
-				this.crafting = false;
-				this.onCraftingFinish();
+		if (this.world.isRemote) {
+			super.update();
+		} else {
+			if (this.isCrafting) {
+				this.craftingTick++;
+				if (this.craftingTick > Settings.CRAFTING_DURATION) {
+					this.onCraftingFinish();
+				}
 			}
 		}
 	}
 	
 	public void playerClick(EntityPlayer player, List<? extends Entity> collidingEntity) {
+		if (this.isCrafting) return;
 		if (!this.enoughSpace()) {
 			Msg.tellPlayer(player, I18n.format("error.workbench_space.key"));
 		} else {
@@ -90,10 +92,7 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 				
 				// Biu biu biu!
 				for (ItemStack i: ingredients) {
-					double x = this.pos.getX() + 0.5;
-					double z = this.pos.getZ() + 0.5;
-					EntityItem item = new EntityItem(this.world, x, this.pos.getY(), z, i);
-					this.world.spawnEntity(item);
+					this.throwStack(i);
 				}
 				
 				this.clearInventory();
@@ -107,19 +106,33 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 				CommonProxy.simpleNetworkWrapper.sendTo(runeAnimationMessage, (EntityPlayerMP) player);
 			}
 			
-			this.markDirty();
+			this.startCrafting();
+			
+			this.save();
 		}
 	}
 	
 	private void startCrafting() {
-		if (!this.crafting) {
-			this.crafting = true;
+		if (!this.isCrafting) {
+			this.isCrafting = true;
 			this.craftingTick = 0;
+			this.save();
 		}
 	}
 	
 	private void onCraftingFinish() {
-		
+		this.isCrafting = false;
+		this.throwStack(CraftingHelper.getCraftingResult(this.getIngredients()));
+		System.out.println("Finish");
+		this.clearInventory();
+		this.save();
+	}
+	
+	private void throwStack(ItemStack stack) {
+		double x = this.pos.getX() + 0.5;
+		double z = this.pos.getZ() + 0.5;
+		EntityItem item = new EntityItem(this.world, x, this.pos.getY(), z, stack);
+		this.world.spawnEntity(item);
 	}
 	
 	@Override
@@ -168,7 +181,23 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 	}
 	
 	public boolean isCrafting() {
-		return this.crafting;
+		return this.isCrafting;
+	}
+	
+	public List<ItemStack> getIngredients() {
+		List<ItemStack> stacks = new ArrayList<ItemStack>();
+		for (int i = 0; i < this.inventory.getSlots(); i++) {
+			stacks.add(this.inventory.getStackInSlot(i));
+		}
+		return stacks;
+	}
+	
+	private void save() {
+		IBlockState state = this.world.getBlockState(this.pos);
+		this.world.markBlockRangeForRenderUpdate(this.pos, this.pos);
+		this.world.notifyBlockUpdate(pos, state, state, 3);
+		this.world.scheduleBlockUpdate(this.pos, this.getBlockType(), 0, 0);
+		this.markDirty();
 	}
 	
 	private void clearInventory() {

@@ -13,7 +13,7 @@ import net.minecraft.util.ITickable;
 
 public abstract class RuneHandlingTileEntity extends TileEntity implements ITickable {
 
-	protected Map<EnumRune, RuneAnimation> animations;
+	protected List<RuneAnimation> animations;
 	
 	public RuneHandlingTileEntity() {
 		super();
@@ -21,33 +21,35 @@ public abstract class RuneHandlingTileEntity extends TileEntity implements ITick
 	}
 	
 	public void init() {
-		animations = new HashMap<EnumRune, RuneAnimation>();
+		animations = new ArrayList<RuneAnimation>();
 		this.createAnimations();
 	}
 	
 	public void playAnimation(EnumRune rune) {
-		RuneAnimation target = this.animations.get(rune);
-		if (target instanceof SingleUseRuneAnimation) {
-			((SingleUseRuneAnimation) target).play();
-		}
+		this.animations.add(rune.create());
 	}
 	
 	@Override
 	public void update() {
-		for (RuneAnimation i: this.getAnimations()) {
+		List<RuneAnimation> expiredAnimations = new ArrayList<RuneAnimation>();
+		for (RuneAnimation i: this.animations) {
 			if (i instanceof SingleUseRuneAnimation) {
 				SingleUseRuneAnimation animation = ((SingleUseRuneAnimation) i);
 				animation.tick();
+				if (animation.isExpired()) {
+					expiredAnimations.add(i);
+				}
 			}
 		}
+		this.animations.removeAll(expiredAnimations);
 	}
 	
 	public List<? extends RuneAnimation> getAnimations() {
-		return new ArrayList<RuneAnimation>(this.animations.values());
+		return new ArrayList<RuneAnimation>(this.animations);
 	}
 	
-	public void addAnimation(EnumRune animation) {
-		this.animations.put(animation, animation.create());
+	public void addPassiveAnimation(EnumRune animation) {
+		this.animations.add(animation.create());
 	}
 	
 	protected abstract void createAnimations();

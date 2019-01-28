@@ -32,7 +32,7 @@ public class ClientMessageHandler implements IMessageHandler<RuneAnimationMessag
 				EnumRune animation = message.getRuneAnimation();
 				TileEntity tileEntity = minecraft.world.getTileEntity(pos);
 				if (tileEntity != null && tileEntity instanceof RuneHandlingTileEntity) {
-					((RuneHandlingTileEntity) tileEntity).playAnimation(animation);
+					((RuneHandlingTileEntity) tileEntity).playAnimation(EnumRune.CRAFTING_START);
 				}
 			}
 		});

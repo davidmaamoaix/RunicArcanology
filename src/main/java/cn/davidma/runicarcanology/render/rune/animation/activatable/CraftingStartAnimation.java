@@ -1,5 +1,6 @@
 package cn.davidma.runicarcanology.render.rune.animation.activatable;
 
+import cn.davidma.runicarcanology.reference.Settings;
 import cn.davidma.runicarcanology.render.rune.AnimationHelper;
 import cn.davidma.runicarcanology.render.rune.EnumCircle;
 import cn.davidma.runicarcanology.render.rune.animation.core.CircleStats;
@@ -9,7 +10,7 @@ import net.minecraft.util.EnumFacing;
 
 public class CraftingStartAnimation extends SingleUseRuneAnimation {
 
-	private static final int ANIMATION_LENGTH = 200;
+	private static final int ANIMATION_LENGTH = Settings.CRAFTING_DURATION;
 	
 	private static final int START_TICK = 15;
 	private static final int END_TICK = 15;
