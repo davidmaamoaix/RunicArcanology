@@ -39,6 +39,7 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 	private static int START_TICK = 20;
 	private static int END_TICK = 200;
 	private static int VANISH_TICK = 100;
+	private static int VANISH_LENGTH = 20;
 	
 	@Override
 	public void render(ArcaneWorkbenchTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
@@ -81,15 +82,34 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 		double degree = worldTime;
 		
 		double distance = MAX_RADIUS * Math.min((double) te.getCraftingTick() / (double) START_TICK, 1);
+		int vanishPoint = Settings.CRAFTING_DURATION - VANISH_TICK;
+		int currTick = te.getCraftingTick();
+		double size = 0.5;
+		
+		// I am not putting this into one compound min/max function. Nope.
+		if (currTick > vanishPoint) {
+			if (currTick > vanishPoint + VANISH_LENGTH) {
+				size = 0;
+			} else {
+				double mul = (double) (currTick - vanishPoint) / (double) VANISH_LENGTH;
+				mul = 1 - mul;
+				size *= mul;
+			}
+		}
+
 		for (ItemStack i: ingredients) {
 			double xOffset = distance * Math.sin(Math.toRadians(degree)) + 0.5D;
 			double zOffset = distance * Math.cos(Math.toRadians(degree)) + 0.5D;
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(xOffset + x, y + 0.5D, zOffset + z);
-			GlStateManager.scale(0.5D, 0.5D, 0.5D);
+			GlStateManager.scale(size, size, size);
 			GlStateManager.rotate((float) (worldTime * 4), 0, 1, 0);
 			this.renderItem(i);
 			GlStateManager.popMatrix();
+			
+			float[] color = new float[] {1, 1, 1, (float) AnimationHelper.oscillate(worldTime, 0.25D, 1)};
+			AnimationHelper.drawCircle(EnumCircle.CIRCLE, xOffset, y + 0.5D, zOffset, size, worldTime, EnumFacing.UP, color);
+			
 			degree += 360 / count;
 		}
 	}

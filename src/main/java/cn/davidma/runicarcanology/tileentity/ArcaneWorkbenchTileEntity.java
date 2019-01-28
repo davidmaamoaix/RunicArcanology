@@ -106,11 +106,8 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 				return;
 			}
 			
-			
-			if (player instanceof EntityPlayerMP) {
-				RuneAnimationMessage runeAnimationMessage = new RuneAnimationMessage(EnumRune.CRAFTING_START, this.pos);
-				CommonProxy.simpleNetworkWrapper.sendTo(runeAnimationMessage, (EntityPlayerMP) player);
-			}
+			RuneAnimationMessage runeAnimationMessage = new RuneAnimationMessage(EnumRune.CRAFTING_START, this.pos);
+			CommonProxy.simpleNetworkWrapper.sendToDimension(runeAnimationMessage, player.dimension);;
 			
 			this.startCrafting();
 		}

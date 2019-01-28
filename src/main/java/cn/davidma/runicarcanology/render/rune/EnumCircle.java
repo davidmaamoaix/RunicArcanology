@@ -5,6 +5,7 @@ import net.minecraft.util.ResourceLocation;
 
 public enum EnumCircle {
 	
+	CIRCLE("circle"),
 	DASH_CIRCLE("dash_circle"),
 	RUNE_CIRCLE("rune_circle"),
 	SQUARE("square");
