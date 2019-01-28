@@ -106,10 +106,6 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 			GlStateManager.rotate((float) (worldTime * 4), 0, 1, 0);
 			this.renderItem(i);
 			GlStateManager.popMatrix();
-			
-			float[] color = new float[] {1, 1, 1, (float) AnimationHelper.oscillate(worldTime, 0.25D, 1)};
-			AnimationHelper.drawCircle(EnumCircle.CIRCLE, xOffset, y + 0.5D, zOffset, size, worldTime, EnumFacing.UP, color);
-			
 			degree += 360 / count;
 		}
 	}
