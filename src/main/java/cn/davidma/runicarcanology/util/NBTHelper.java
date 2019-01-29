@@ -1,9 +1,17 @@
 package cn.davidma.runicarcanology.util;
 
+import cn.davidma.runicarcanology.render.rune.animation.core.SingleUseRuneAnimation;
+import net.minecraft.nbt.NBTTagCompound;
+
 public class NBTHelper {
 
 	// Activatable Rune.
 	public static String RUNE_WORKING = "isWorking";
+	
+	// Animation.
+	public static String ANIMATION_LIST = "animationList";
+	public static String RUNE_TYPE = "runeType";
+	public static String CURR_TIME = "currTime";
 	
 	// Arcane Workbench.
 	public static String INVENTORY = "inventory";

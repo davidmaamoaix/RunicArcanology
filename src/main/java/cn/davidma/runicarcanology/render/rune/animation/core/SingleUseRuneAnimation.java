@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.davidma.runicarcanology.render.rune.EnumCircle;
+import cn.davidma.runicarcanology.render.rune.EnumRune;
+import net.minecraft.nbt.NBTTagList;
 
 public class SingleUseRuneAnimation extends RuneAnimation {
 
@@ -36,5 +38,13 @@ public class SingleUseRuneAnimation extends RuneAnimation {
 	
 	public boolean isExpired() {
 		return this.expired;
+	}
+	
+	public int getCurrTime() {
+		return this.currTime;
+	}
+	
+	public void setCurrTime(int currTime) {
+		this.currTime = currTime;
 	}
 }

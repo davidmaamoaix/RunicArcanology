@@ -3,6 +3,7 @@ package cn.davidma.runicarcanology.render.rune.animation.activatable;
 import cn.davidma.runicarcanology.reference.Settings;
 import cn.davidma.runicarcanology.render.rune.AnimationHelper;
 import cn.davidma.runicarcanology.render.rune.EnumCircle;
+import cn.davidma.runicarcanology.render.rune.EnumRune;
 import cn.davidma.runicarcanology.render.rune.animation.core.CircleStats;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.SingleUseRuneAnimation;

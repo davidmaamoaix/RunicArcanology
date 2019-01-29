@@ -10,8 +10,10 @@ import javax.annotation.Nullable;
 import cn.davidma.runicarcanology.render.rune.EnumRune;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.SingleUseRuneAnimation;
+import cn.davidma.runicarcanology.util.NBTHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -81,6 +83,22 @@ public abstract class RuneHandlingTileEntity extends TileEntity implements ITick
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		super.onDataPacket(net, pkt);
 		handleUpdateTag(pkt.getNbtCompound());
+	}
+	
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+		NBTTagList animationList = new NBTTagList();
+		for (RuneAnimation i: this.animations) {
+			if (i instanceof SingleUseRuneAnimation) {
+				SingleUseRuneAnimation animation = (SingleUseRuneAnimation) i;
+				NBTTagCompound animationTag = new NBTTagCompound();
+				animationTag.setInteger(NBTHelper.RUNE_TYPE, animation.getRuneType().ordinal());
+				animationTag.setInteger(NBTHelper.CURR_TIME, animation.getCurrTime());
+				animationList.appendTag(animationTag);
+			}
+		}
+		nbt.setTag(NBTHelper.ANIMATION_LIST, animationList);
+		return super.writeToNBT(nbt);
 	}
 	
 	protected abstract void createAnimations();

@@ -23,4 +23,8 @@ public enum EnumRune {
 			return null;
 		}
 	}
+	
+	public Class<? extends RuneAnimation> getRuneClass() {
+		return this.runeClass;
+	}
 }
