@@ -12,6 +12,7 @@ import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.SingleUseRuneAnimation;
 import cn.davidma.runicarcanology.util.NBTHelper;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
@@ -83,6 +84,25 @@ public abstract class RuneHandlingTileEntity extends TileEntity implements ITick
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		super.onDataPacket(net, pkt);
 		handleUpdateTag(pkt.getNbtCompound());
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		NBTBase animationList = nbt.getTag(NBTHelper.ANIMATION_LIST);
+		if (animationList instanceof NBTTagList) {
+			for (NBTBase i: (NBTTagList) animationList) {
+				if (i instanceof NBTTagCompound) {
+					NBTTagCompound animationTag = (NBTTagCompound) i;
+					EnumRune animationType = EnumRune.values()[animationTag.getInteger(NBTHelper.RUNE_TYPE)];
+					RuneAnimation animation = animationType.create();
+					if (animation instanceof SingleUseRuneAnimation) {
+						((SingleUseRuneAnimation) animation).setCurrTime(animationTag.getInteger(NBTHelper.CURR_TIME));
+					}
+					this.animations.add(animation);
+				}
+			}
+		}
+		super.readFromNBT(nbt);
 	}
 	
 	@Override

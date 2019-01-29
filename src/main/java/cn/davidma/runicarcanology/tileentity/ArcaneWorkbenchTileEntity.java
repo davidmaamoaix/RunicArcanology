@@ -54,8 +54,8 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 	
 	@Override
 	public void update() {
+		super.update();
 		if (this.world.isRemote) {
-			super.update();
 			this.craftingTick++;
 		} else {
 			if (this.isCrafting) {
@@ -106,6 +106,7 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 				return;
 			}
 			
+			this.playAnimation(EnumRune.CRAFTING_START);
 			RuneAnimationMessage runeAnimationMessage = new RuneAnimationMessage(EnumRune.CRAFTING_START, this.pos);
 			CommonProxy.simpleNetworkWrapper.sendToDimension(runeAnimationMessage, player.dimension);;
 			

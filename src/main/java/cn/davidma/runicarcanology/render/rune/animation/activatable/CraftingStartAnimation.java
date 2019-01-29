@@ -38,6 +38,13 @@ public class CraftingStartAnimation extends SingleUseRuneAnimation {
 			}
 		}
 		
+		if (this.currTime >= START_TICK && this.currTime < this.animationLength - END_TICK) {
+			for (int i = 0; i < this.circles.size(); i++) {
+				CircleStats circle = this.circles.get(i);
+				circle.setDiameter(CIRCLE_DIAMETER[i]);
+			}
+		}
+		
 		this.circles.get(0).setColor(new float[] {1, 1, 1, (float) AnimationHelper.oscillate(time * 6, 0.25, 1)});
 		for (int i = 1; i < 4; i++) {
 			this.circles.get(i).setColor(new float[] {1, 1, 1, (float) AnimationHelper.oscillate(time * 8, 0.25, 1)});
