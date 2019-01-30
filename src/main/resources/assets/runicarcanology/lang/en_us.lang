@@ -1,2 +1,6 @@
 error.workbench_space.key=The workbench needs more empty space around it (5x5x2).
 error.invalid_recipe.key=Invalid recipe.
+
+tile.arcane_workbench.name=Arcane Workbench
+
+item.runic_plate.name=Runic Plate

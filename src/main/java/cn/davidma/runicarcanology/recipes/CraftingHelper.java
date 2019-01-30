@@ -3,6 +3,7 @@ package cn.davidma.runicarcanology.recipes;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.davidma.runicarcanology.registry.RAItems;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -12,7 +13,7 @@ public class CraftingHelper {
 	
 	public static void init() {
 		workbenchRecipes = new ArrayList<WorkbenchRecipe>();
-		addRecipe(new ItemStack(Items.DIAMOND, 2), new ItemStack(Items.DIAMOND), new ItemStack(Items.QUARTZ, 4));
+		addRecipe(new ItemStack(RAItems.getItem("runic_plate"), 2), new ItemStack(Items.DIAMOND), new ItemStack(Items.QUARTZ, 4));
 	}
 	
 	public static ItemStack getCraftingResult(List<ItemStack> ingredients) {

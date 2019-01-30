@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.davidma.runicarcanology.item.template.StandardItemBase;
 import net.minecraft.item.Item;
 
 public class RAItems {
@@ -12,7 +13,7 @@ public class RAItems {
 	private static Map<String, Item> items;
 	
 	public static void instantiateAllItems() {
-		
+		new StandardItemBase("runic_plate");
 	}
 	
 	public static void addItem(String name, Item item) {
