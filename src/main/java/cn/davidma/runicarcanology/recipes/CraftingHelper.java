@@ -29,4 +29,8 @@ public class CraftingHelper {
 		WorkbenchRecipe recipe = new WorkbenchRecipe(output, ingredients);
 		workbenchRecipes.add(recipe);
 	}
+	
+	public static List<WorkbenchRecipe> getWorkbenchRecipes() {
+		return new ArrayList<WorkbenchRecipe>(workbenchRecipes);
+	}
 }
