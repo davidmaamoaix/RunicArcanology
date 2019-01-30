@@ -39,6 +39,10 @@ public class WorkbenchRecipe {
 		return newIngredients.isEmpty() && newStacks.isEmpty();
 	}
 	
+	public List<ItemStack> getIngredients() {
+		return new ArrayList<ItemStack>(this.ingredients);
+	}
+	
 	public ItemStack getOutput() {
 		return this.output;
 	}

@@ -2,6 +2,7 @@ package cn.davidma.runicarcanology;
 
 import cn.davidma.runicarcanology.capability.RACapabilities;
 import cn.davidma.runicarcanology.proxy.IProxy;
+import cn.davidma.runicarcanology.recipes.CraftingHelper;
 import cn.davidma.runicarcanology.reference.Info;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -29,6 +30,7 @@ public class RunicArcanology {
 	@EventHandler
 	public void init (FMLInitializationEvent event) {
 		proxy.init(event);
+		CraftingHelper.init();
 	}
 	
 	@EventHandler

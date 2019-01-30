@@ -17,7 +17,6 @@ public class CraftingHelper {
 	}
 	
 	public static ItemStack getCraftingResult(List<ItemStack> ingredients) {
-		if (workbenchRecipes == null) init();
 		for (WorkbenchRecipe i: workbenchRecipes) {
 			if (i.match(ingredients)) {
 				return i.getOutput();
