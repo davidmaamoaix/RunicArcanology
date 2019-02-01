@@ -1,4 +1,4 @@
-package cn.davidma.runicarcanology.block.template;
+package cn.davidma.runicarcanology.block.base;
 
 import java.util.List;
 

@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.davidma.runicarcanology.render.rune.EnumCircle;
-import cn.davidma.runicarcanology.render.rune.EnumRune;
+import cn.davidma.runicarcanology.render.rune.EnumRuneAnimation;
 import net.minecraft.nbt.NBTTagList;
 
-public class SingleUseRuneAnimation extends RuneAnimation {
+public abstract class SingleUseRuneAnimation extends RuneAnimation {
 
-	public int animationLength;
-	public int currTime;
+	protected int animationLength;
+	protected int currTime;
 	
 	private boolean expired;
 	
-	public SingleUseRuneAnimation(int animationLength) {
+	public SingleUseRuneAnimation() {
 		super();
-		this.animationLength = animationLength;
 		this.currTime = 0;
+		this.animationLength = this.getAnimationLength();
 		this.expired = false;
 	}
 	
@@ -47,4 +47,6 @@ public class SingleUseRuneAnimation extends RuneAnimation {
 	public void setCurrTime(int currTime) {
 		this.currTime = currTime;
 	}
+	
+	protected abstract int getAnimationLength();
 }

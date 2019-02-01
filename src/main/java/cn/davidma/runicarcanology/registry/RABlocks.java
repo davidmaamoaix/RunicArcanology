@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.davidma.runicarcanology.block.ArcaneWorkbench;
-import cn.davidma.runicarcanology.block.template.StandardBlockBase;
+import cn.davidma.runicarcanology.block.base.StandardBlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;

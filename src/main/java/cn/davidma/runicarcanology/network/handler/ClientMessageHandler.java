@@ -1,7 +1,7 @@
 package cn.davidma.runicarcanology.network.handler;
 
 import cn.davidma.runicarcanology.network.client.RuneAnimationMessage;
-import cn.davidma.runicarcanology.render.rune.EnumRune;
+import cn.davidma.runicarcanology.render.rune.EnumRuneAnimation;
 import cn.davidma.runicarcanology.tileentity.RuneHandlingTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -29,10 +29,10 @@ public class ClientMessageHandler implements IMessageHandler<RuneAnimationMessag
 			@Override
 			public void run() {
 				BlockPos pos = message.getTileEntityPosition();
-				EnumRune animation = message.getRuneAnimation();
+				EnumRuneAnimation animation = message.getRuneAnimation();
 				TileEntity tileEntity = minecraft.world.getTileEntity(pos);
 				if (tileEntity != null && tileEntity instanceof RuneHandlingTileEntity) {
-					((RuneHandlingTileEntity) tileEntity).playAnimation(EnumRune.CRAFTING_START);
+					((RuneHandlingTileEntity) tileEntity).playAnimation(EnumRuneAnimation.CRAFTING_START);
 				}
 			}
 		});

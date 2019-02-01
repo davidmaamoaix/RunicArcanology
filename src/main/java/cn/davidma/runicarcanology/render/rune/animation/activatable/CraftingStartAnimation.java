@@ -3,7 +3,7 @@ package cn.davidma.runicarcanology.render.rune.animation.activatable;
 import cn.davidma.runicarcanology.reference.Settings;
 import cn.davidma.runicarcanology.render.rune.AnimationHelper;
 import cn.davidma.runicarcanology.render.rune.EnumCircle;
-import cn.davidma.runicarcanology.render.rune.EnumRune;
+import cn.davidma.runicarcanology.render.rune.EnumRuneAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.CircleStats;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.SingleUseRuneAnimation;
@@ -18,7 +18,7 @@ public class CraftingStartAnimation extends SingleUseRuneAnimation {
 	private static final float[] CIRCLE_DIAMETER = new float[] {2.75F, 2.75F, 2.75F, 2.75F, 5};
 	
 	public CraftingStartAnimation() {
-		super(ANIMATION_LENGTH);
+		super();
 		this.circles.add(new CircleStats(EnumCircle.DASH_CIRCLE, EnumFacing.UP, 3, 0));
 		for (int i = 0; i < 3; i++) {
 			CircleStats square = new CircleStats(EnumCircle.SQUARE, EnumFacing.UP, -2, 0);
@@ -58,5 +58,10 @@ public class CraftingStartAnimation extends SingleUseRuneAnimation {
 			}
 		}
 		super.draw(x, y, z, time);
+	}
+
+	@Override
+	protected int getAnimationLength() {
+		return ANIMATION_LENGTH;
 	}
 }

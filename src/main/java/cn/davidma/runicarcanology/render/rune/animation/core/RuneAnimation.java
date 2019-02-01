@@ -5,19 +5,19 @@ import java.util.List;
 
 import cn.davidma.runicarcanology.render.rune.AnimationHelper;
 import cn.davidma.runicarcanology.render.rune.EnumCircle;
-import cn.davidma.runicarcanology.render.rune.EnumRune;
+import cn.davidma.runicarcanology.render.rune.EnumRuneAnimation;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 
 public class RuneAnimation {
 
-	protected EnumRune runeType;
+	protected EnumRuneAnimation runeType;
 	
 	public List<CircleStats> circles;
 	
 	public RuneAnimation() {
 		circles = new ArrayList<CircleStats>();
-		for (EnumRune i: EnumRune.values()) {
+		for (EnumRuneAnimation i: EnumRuneAnimation.values()) {
 			if (i.getRuneClass() == this.getClass()) {
 				this.runeType = i;
 				break;
@@ -41,7 +41,7 @@ public class RuneAnimation {
 		}
 	}
 	
-	public EnumRune getRuneType() {
+	public EnumRuneAnimation getRuneType() {
 		return this.runeType;
 	}
 }

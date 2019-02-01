@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.davidma.runicarcanology.item.template.StandardItemBase;
+import cn.davidma.runicarcanology.item.base.StandardItemBase;
 import net.minecraft.item.Item;
 
 public class RAItems {

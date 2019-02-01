@@ -1,6 +1,5 @@
 package cn.davidma.runicarcanology;
 
-import cn.davidma.runicarcanology.capability.RACapabilities;
 import cn.davidma.runicarcanology.proxy.IProxy;
 import cn.davidma.runicarcanology.recipes.CraftingHelper;
 import cn.davidma.runicarcanology.reference.Info;
@@ -24,7 +23,6 @@ public class RunicArcanology {
 	@EventHandler
 	public void preInit (FMLPreInitializationEvent event) {
 		proxy.preInit(event);
-		RACapabilities.registerCapabilities();
 	}
 	
 	@EventHandler

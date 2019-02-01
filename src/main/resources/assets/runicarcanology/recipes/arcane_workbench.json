@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " N ",
+        "EQE",
+        "LLL"
+    ],
+    "key": {
+        "Q": [{
+            "item": "minecraft:quartz_block",
+            "data": 2
+        }],
+        "N": [{
+            "item": "minecraft:nether_star"
+        }],
+        "L": [{
+            "item": "minecraft:lapis_block"
+        }],
+        "E": [{
+            "item": "minecraft:ender_pearl"
+        }]
+    },
+    "result": {
+        "item": "runicarcanology:arcane_workbench"
+    }
+}

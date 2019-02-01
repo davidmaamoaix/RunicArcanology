@@ -1,4 +1,4 @@
-package cn.davidma.runicarcanology.item.template;
+package cn.davidma.runicarcanology.item.base;
 
 import cn.davidma.runicarcanology.RunicArcanology;
 import cn.davidma.runicarcanology.registry.RAItems;

@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-import cn.davidma.runicarcanology.render.rune.EnumRune;
+import cn.davidma.runicarcanology.render.rune.EnumRuneAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.SingleUseRuneAnimation;
 import cn.davidma.runicarcanology.util.NBTHelper;
@@ -34,7 +34,7 @@ public abstract class RuneHandlingTileEntity extends TileEntity implements ITick
 		this.createAnimations();
 	}
 	
-	public void playAnimation(EnumRune rune) {
+	public void playAnimation(EnumRuneAnimation rune) {
 		this.animations.add(rune.create());
 	}
 	
@@ -57,7 +57,7 @@ public abstract class RuneHandlingTileEntity extends TileEntity implements ITick
 		return new ArrayList<RuneAnimation>(this.animations);
 	}
 	
-	public void addPassiveAnimation(EnumRune animation) {
+	public void addPassiveAnimation(EnumRuneAnimation animation) {
 		this.animations.add(animation.create());
 	}
 	
@@ -81,9 +81,9 @@ public abstract class RuneHandlingTileEntity extends TileEntity implements ITick
 	}
 	
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-		super.onDataPacket(net, pkt);
-		handleUpdateTag(pkt.getNbtCompound());
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+		super.onDataPacket(net, packet);
+		handleUpdateTag(packet.getNbtCompound());
 	}
 	
 	@Override
@@ -93,7 +93,7 @@ public abstract class RuneHandlingTileEntity extends TileEntity implements ITick
 			for (NBTBase i: (NBTTagList) animationList) {
 				if (i instanceof NBTTagCompound) {
 					NBTTagCompound animationTag = (NBTTagCompound) i;
-					EnumRune animationType = EnumRune.values()[animationTag.getInteger(NBTHelper.RUNE_TYPE)];
+					EnumRuneAnimation animationType = EnumRuneAnimation.values()[animationTag.getInteger(NBTHelper.RUNE_TYPE)];
 					RuneAnimation animation = animationType.create();
 					if (animation instanceof SingleUseRuneAnimation) {
 						((SingleUseRuneAnimation) animation).setCurrTime(animationTag.getInteger(NBTHelper.CURR_TIME));

@@ -2,7 +2,7 @@ package cn.davidma.runicarcanology.block;
 
 import java.util.List;
 
-import cn.davidma.runicarcanology.block.template.TransparentTileEntityBlock;
+import cn.davidma.runicarcanology.block.base.TransparentTileEntityBlock;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
 import cn.davidma.runicarcanology.util.Msg;
 import net.minecraft.block.SoundType;

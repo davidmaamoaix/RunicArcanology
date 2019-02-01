@@ -9,7 +9,7 @@ import cn.davidma.runicarcanology.network.client.RuneAnimationMessage;
 import cn.davidma.runicarcanology.proxy.CommonProxy;
 import cn.davidma.runicarcanology.recipes.CraftingHelper;
 import cn.davidma.runicarcanology.reference.Settings;
-import cn.davidma.runicarcanology.render.rune.EnumRune;
+import cn.davidma.runicarcanology.render.rune.EnumRuneAnimation;
 import cn.davidma.runicarcanology.util.Msg;
 import cn.davidma.runicarcanology.util.NBTHelper;
 import net.minecraft.block.state.IBlockState;
@@ -49,7 +49,7 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 	
 	@Override
 	protected void createAnimations() {
-		this.addPassiveAnimation(EnumRune.WORKBENCH_PASSIVE);
+		this.addPassiveAnimation(EnumRuneAnimation.WORKBENCH_PASSIVE);
 	}
 	
 	@Override
@@ -106,8 +106,8 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 				return;
 			}
 			
-			this.playAnimation(EnumRune.CRAFTING_START);
-			RuneAnimationMessage runeAnimationMessage = new RuneAnimationMessage(EnumRune.CRAFTING_START, this.pos);
+			this.playAnimation(EnumRuneAnimation.CRAFTING_START);
+			RuneAnimationMessage runeAnimationMessage = new RuneAnimationMessage(EnumRuneAnimation.CRAFTING_START, this.pos);
 			CommonProxy.simpleNetworkWrapper.sendToDimension(runeAnimationMessage, player.dimension);;
 			
 			this.startCrafting();
