@@ -4,6 +4,7 @@ import cn.davidma.runicarcanology.network.client.RuneAnimationMessage;
 import cn.davidma.runicarcanology.network.handler.ClientMessageHandler;
 import cn.davidma.runicarcanology.reference.Info;
 import cn.davidma.runicarcanology.registry.RAItems;
+import cn.davidma.runicarcanology.render.particle.TextureStitcher;
 import cn.davidma.runicarcanology.render.tesr.ArcaneWorkbenchTESR;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
 import net.minecraft.client.Minecraft;
@@ -20,7 +21,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class ClientProxy implements IProxy {
-
+	
 	@Override
 	public void registerItemRenderer(Item item, int meta, String id) {
 		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
@@ -33,6 +34,7 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
+		MinecraftForge.EVENT_BUS.register(new TextureStitcher());
 		this.registerTileEntitySpecialRenderer();
 		CommonProxy.simpleNetworkWrapper.registerMessage(ClientMessageHandler.class, RuneAnimationMessage.class, CommonProxy.ANIMATION_MESSAGE_ID_CLIENT, Side.CLIENT);
 	}

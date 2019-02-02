@@ -1,8 +1,10 @@
 package cn.davidma.runicarcanology.block;
 
 import java.util.List;
+import java.util.Random;
 
 import cn.davidma.runicarcanology.block.base.TransparentTileEntityBlock;
+import cn.davidma.runicarcanology.render.particle.LightParticle;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
 import cn.davidma.runicarcanology.util.Msg;
 import net.minecraft.block.SoundType;
@@ -22,6 +24,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
@@ -76,5 +80,14 @@ public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchT
 			}
 		}
 		super.breakBlock(world, pos, state);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+		super.randomDisplayTick(state, world, pos, rand);
+		LightParticle particle = new LightParticle(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0, 0);
+		particle.setMaxAge(60);
+		Minecraft.getMinecraft().effectRenderer.addEffect(particle);
 	}
 }

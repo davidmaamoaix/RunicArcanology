@@ -35,7 +35,7 @@ public class AnimationHelper {
 		double radius = diameter / 2;
 		double slant = Math.sqrt(radius * radius * 2);
 		
-		bufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+		bufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
 		
 		// Four vertices.
 		int[][] vertPos = {{0, 0}, {0, 1}, {1, 1}, {1, 0}};		
@@ -58,7 +58,7 @@ public class AnimationHelper {
 				case EAST: temp = newX; newX = newY; newY = temp; // newX, newY, newZ = y, x, z
 			}
 			
-			bufferBuilder.pos(x + newX, y + newY, z + newZ).tex(vertPos[i][0], vertPos[i][1]).endVertex();
+			bufferBuilder.pos(x + newX, y + newY, z + newZ).tex(vertPos[i][0], vertPos[i][1]).lightmap(0xf000f0, 0xf000f0).color(1, 1, 1, 1).endVertex();
 		}
 		
 		tessellator.draw();

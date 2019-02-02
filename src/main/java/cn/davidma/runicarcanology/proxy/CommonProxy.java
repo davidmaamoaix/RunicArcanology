@@ -24,17 +24,11 @@ public class CommonProxy implements IProxy {
 	public void registerTileEntitySpecialRenderer() {}
 
 	@Override
-	public void preInit(FMLPreInitializationEvent event) {
-
-	}
+	public void preInit(FMLPreInitializationEvent event) {}
 
 	@Override
-	public void init(FMLInitializationEvent event) {
-		
-	}
+	public void init(FMLInitializationEvent event) {}
 
 	@Override
-	public void postInit(FMLPostInitializationEvent event) {
-		
-	}
+	public void postInit(FMLPostInitializationEvent event) {}
 }
