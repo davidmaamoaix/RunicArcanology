@@ -120,7 +120,7 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 			
 			if (MathHelper.randomInt(0, 10) == 0 && size == 0.5) {
 				double randY = MathHelper.randomDouble(-0.1, 0.1);
-				new LightParticle(te.getWorld(), fromX, fromY + randY, fromZ, pos.getX() + 0.5, pos.getY() + 1.5 + randY, pos.getZ() + 0.5, 10);
+				new LightParticle(te.getWorld(), fromX, fromY + randY, fromZ, pos.getX() + 0.5, pos.getY() + 1.5 + randY, pos.getZ() + 0.5, 0.1);
 			}
 		}
 		
@@ -129,12 +129,11 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 			double posX = pos.getX() + 0.5;
 			double posY = pos.getY();
 			double posZ = pos.getZ() + 0.5;
-			new LineParticle(te.getWorld(), posX, posY + 1.5, posZ, posX, posY, posZ, 20);
+			new LineParticle(te.getWorld(), posX, posY + 1.5, posZ, posX, posY, posZ, 0.1);
 		}
 	}
 	
 	private void renderItem(ItemStack stack) {
-		GL11.glColor4f(1, 1, 1, 0.5F);
 		Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 	}
 }

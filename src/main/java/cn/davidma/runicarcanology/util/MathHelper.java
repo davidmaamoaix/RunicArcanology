@@ -14,8 +14,8 @@ public class MathHelper {
 	
 	public static double distance(double fromX, double fromY, double fromZ, double toX, double toY, double toZ) {
 		double a = Math.pow(toX - fromX, 2);
-		double b = Math.pow(toY + fromY, 2);
-		double c = Math.pow(toZ + fromZ, 2);
+		double b = Math.pow(toY - fromY, 2);
+		double c = Math.pow(toZ - fromZ, 2);
 		
 		return Math.sqrt(a + b + c);
 	}
