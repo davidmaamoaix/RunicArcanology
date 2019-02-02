@@ -8,10 +8,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class TextureStitcher {
 
-	public static TextureAtlasSprite lightParticle;
+	public static TextureAtlasSprite LIGHT_PARTICLE;
 	
 	@SubscribeEvent
 	public void onTextureStitch(TextureStitchEvent.Pre event) {
-		lightParticle = event.getMap().registerSprite(new ResourceLocation(Info.MOD_ID, "particles/light_particle"));
+		LIGHT_PARTICLE = event.getMap().registerSprite(new ResourceLocation(Info.MOD_ID, "particles/light_particle"));
 	}
 }

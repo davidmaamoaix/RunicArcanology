@@ -35,7 +35,7 @@ public class AnimationHelper {
 		double radius = diameter / 2;
 		double slant = Math.sqrt(radius * radius * 2);
 		
-		bufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+		bufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 		
 		// Four vertices.
 		int[][] vertPos = {{0, 0}, {0, 1}, {1, 1}, {1, 0}};		
@@ -58,7 +58,7 @@ public class AnimationHelper {
 				case EAST: temp = newX; newX = newY; newY = temp; // newX, newY, newZ = y, x, z
 			}
 			
-			bufferBuilder.pos(x + newX, y + newY, z + newZ).tex(vertPos[i][0], vertPos[i][1]).lightmap(0xf000f0, 0xf000f0).color(1, 1, 1, 1).endVertex();
+			bufferBuilder.pos(x + newX, y + newY, z + newZ).tex(vertPos[i][0], vertPos[i][1]).endVertex();
 		}
 		
 		tessellator.draw();
@@ -71,9 +71,5 @@ public class AnimationHelper {
 	public static void drawCircle(EnumCircle circle, double x, double y, double z, double diameter, double time, EnumFacing facing, float[] color) {
 		drawSingleSidedCircle(circle, x, y, z, diameter, time, facing, color);
 		drawSingleSidedCircle(circle, x, y, z, diameter, time, facing.getOpposite(), color);
-	}
-	
-	public static double oscillate(double time, double min, double max) {
-		return min + (Math.sin(Math.toRadians(time)) + 1) / 2 * (max - min);
 	}
 }

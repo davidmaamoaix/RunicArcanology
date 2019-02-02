@@ -6,11 +6,14 @@ import org.lwjgl.opengl.GL11;
 
 import cn.davidma.runicarcanology.reference.Info;
 import cn.davidma.runicarcanology.reference.Settings;
+import cn.davidma.runicarcanology.render.particle.LightParticle;
+import cn.davidma.runicarcanology.render.particle.LineParticle;
 import cn.davidma.runicarcanology.render.rune.AnimationHelper;
 import cn.davidma.runicarcanology.render.rune.EnumCircle;
 import cn.davidma.runicarcanology.render.rune.animation.ambient.WorkbenchAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
+import cn.davidma.runicarcanology.util.MathHelper;
 import net.minecraft.block.BlockPressurePlate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -28,6 +31,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -99,14 +103,33 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 
 		for (ItemStack i: ingredients) {
 			double xOffset = distance * Math.sin(Math.toRadians(degree)) + 0.5D;
+			double yOffset = 0.5D;
 			double zOffset = distance * Math.cos(Math.toRadians(degree)) + 0.5D;
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(xOffset + x, y + 0.5D, zOffset + z);
+			GlStateManager.translate(xOffset + x, yOffset + y, zOffset + z);
 			GlStateManager.scale(size, size, size);
 			GlStateManager.rotate((float) (worldTime * 4), 0, 1, 0);
 			this.renderItem(i);
 			GlStateManager.popMatrix();
 			degree += 360 / count;
+			
+			BlockPos pos = te.getPos();
+			double fromX = pos.getX() + xOffset;
+			double fromY = pos.getY() + yOffset;
+			double fromZ = pos.getZ() + zOffset;
+			
+			if (MathHelper.randomInt(0, 10) == 0 && size == 0.5) {
+				double randY = MathHelper.randomDouble(-0.1, 0.1);
+				new LightParticle(te.getWorld(), fromX, fromY + randY, fromZ, pos.getX() + 0.5, pos.getY() + 1.5 + randY, pos.getZ() + 0.5, 10);
+			}
+		}
+		
+		if (te.getCraftingTick() > END_TICK) {
+			BlockPos pos = te.getPos();
+			double posX = pos.getX() + 0.5;
+			double posY = pos.getY();
+			double posZ = pos.getZ() + 0.5;
+			new LineParticle(te.getWorld(), posX, posY + 1.5, posZ, posX, posY, posZ, 20);
 		}
 	}
 	

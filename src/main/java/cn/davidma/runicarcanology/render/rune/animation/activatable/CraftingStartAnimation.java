@@ -7,6 +7,7 @@ import cn.davidma.runicarcanology.render.rune.EnumRuneAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.CircleStats;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.SingleUseRuneAnimation;
+import cn.davidma.runicarcanology.util.MathHelper;
 import net.minecraft.util.EnumFacing;
 
 public class CraftingStartAnimation extends SingleUseRuneAnimation {
@@ -45,11 +46,11 @@ public class CraftingStartAnimation extends SingleUseRuneAnimation {
 			}
 		}
 		
-		this.circles.get(0).setColor(new float[] {1, 1, 1, (float) AnimationHelper.oscillate(time * 6, 0.25, 1)});
+		this.circles.get(0).setColor(new float[] {1, 1, 1, (float) MathHelper.oscillate(time * 6, 0.25, 1)});
 		for (int i = 1; i < 4; i++) {
-			this.circles.get(i).setColor(new float[] {1, 1, 1, (float) AnimationHelper.oscillate(time * 8, 0.25, 1)});
+			this.circles.get(i).setColor(new float[] {1, 1, 1, (float) MathHelper.oscillate(time * 8, 0.25, 1)});
 		}
-		this.circles.get(4).setColor(new float[] {1, 1, 1, (float) AnimationHelper.oscillate(time * 4, 0.5, 1)});
+		this.circles.get(4).setColor(new float[] {1, 1, 1, (float) MathHelper.oscillate(time * 4, 0.5, 1)});
 		
 		if (this.currTime >= this.animationLength - END_TICK) {
 			for (int i = 0; i < this.circles.size(); i++) {
