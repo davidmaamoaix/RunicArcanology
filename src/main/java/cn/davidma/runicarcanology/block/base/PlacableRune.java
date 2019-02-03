@@ -48,7 +48,7 @@ public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEnt
 	
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (world.isRemote) return true;
-		TileEntity tileEntity = world.getTileEntity(pos);
+		TileEntity tileEntity = this.getTileEntity(world, pos);
 		if (tileEntity == null || !(tileEntity instanceof PlacableRuneTileEntity)) return true;
 		((PlacableRuneTileEntity) tileEntity).playerClick();
 		

@@ -46,7 +46,7 @@ public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchT
 		
 		if (world.isRemote) return true;
 		
-		TileEntity tileEntity = world.getTileEntity(pos);
+		TileEntity tileEntity = this.getTileEntity(world, pos);
 		if (tileEntity == null || !(tileEntity instanceof ArcaneWorkbenchTileEntity)) return true;
 		ArcaneWorkbenchTileEntity workbenchTileEntity = (ArcaneWorkbenchTileEntity) tileEntity;
 		
