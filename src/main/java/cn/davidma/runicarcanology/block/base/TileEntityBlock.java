@@ -19,8 +19,8 @@ public abstract class TileEntityBlock<TE extends TileEntity> extends StandardBlo
 		RATileEntities.addTileEntityClass(this.getRegistryName(), this.getTileEntityClass());
 	}
 
-	public TE getTileEntity(IBlockAccess world, BlockPos pos) {
-		return (TE) world.getTileEntity(pos);
+	public TileEntity getTileEntity(IBlockAccess world, BlockPos pos) {
+		return world.getTileEntity(pos);
 	}
 	
 	@Override

@@ -2,6 +2,7 @@ package cn.davidma.runicarcanology.block.base;
 
 import com.google.common.base.Predicate;
 
+import cn.davidma.runicarcanology.tileentity.EnumRuneTileEntity;
 import cn.davidma.runicarcanology.tileentity.base.PlacableRuneTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockButton;
@@ -13,6 +14,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -23,8 +25,8 @@ import net.minecraft.world.World;
 
 public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEntity> {
 
-	protected static final AxisAlignedBB DOWN = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 0.125, 0.75);
-	protected static final AxisAlignedBB UP = new AxisAlignedBB(0.25, 0.875, 0.25, 0.75, 1, 0.75);
+	protected static final AxisAlignedBB UP = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 0.125, 0.75);
+	protected static final AxisAlignedBB DOWN = new AxisAlignedBB(0.25, 0.875, 0.25, 0.75, 1, 0.75);
 	protected static final AxisAlignedBB NORTH = new AxisAlignedBB(0.25, 0.25, 0.875, 0.75, 0.75, 1);
     protected static final AxisAlignedBB SOUTH = new AxisAlignedBB(0.25, 0.25, 0.0D, 0.75, 0.75, 0.125);
     protected static final AxisAlignedBB WEST = new AxisAlignedBB(0.875, 0.25, 0.25, 1, 0.75, 0.75);
@@ -38,11 +40,8 @@ public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEnt
 		}
 	});
 	
-	private Class<? extends PlacableRuneTileEntity> runeTEClass;
-	
-	public PlacableRune(String name, Class<? extends PlacableRuneTileEntity> runeTEClass) {
+	public PlacableRune(String name) {
 		super(name, Material.IRON);
-		this.runeTEClass = runeTEClass;
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
 	}
 	
@@ -56,8 +55,16 @@ public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEnt
 	}
 	
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		return DOWN;
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		switch (world.getBlockState(pos).getValue(FACING)) {
+			case UP: return UP;
+			case DOWN: return DOWN;
+			case NORTH: return NORTH;
+			case SOUTH: return SOUTH;
+			case EAST: return EAST;
+			case WEST: return WEST;
+			default: return UP;
+		}
 	}
 	
 	@Override
@@ -77,12 +84,16 @@ public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEnt
 			}
 		}
 		
-		TileEntity tileEntity = world.getTileEntity(pos);
-		if (tileEntity != null && tileEntity instanceof PlacableRuneTileEntity) {
-			((PlacableRuneTileEntity) tileEntity).setRuneFacing(newFacing);
-		}
-		
 		return this.getDefaultState().withProperty(FACING, newFacing);
+	}
+	
+	@Override
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase player, ItemStack stack) {
+		super.onBlockPlacedBy(world, pos, state, player, stack);
+		TileEntity tileEntity = this.getTileEntity(world, pos);
+		if (tileEntity != null && tileEntity instanceof PlacableRuneTileEntity) {
+			((PlacableRuneTileEntity) tileEntity).setRuneFacing(world.getBlockState(pos).getValue(FACING));
+		}
 	}
 	
 	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side) {
@@ -150,13 +161,13 @@ public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEnt
 
 	@Override
 	public Class<PlacableRuneTileEntity> getTileEntityClass() {
-		return (Class<PlacableRuneTileEntity>) this.runeTEClass;
+		return (Class<PlacableRuneTileEntity>) EnumRuneTileEntity.findRuneTileEntityClassByName(this.name);
 	}
 
 	@Override
 	public PlacableRuneTileEntity createTileEntity(World world, IBlockState state) {
 		try {
-			return this.runeTEClass.newInstance();
+			return EnumRuneTileEntity.findRuneTileEntityClassByName(this.name).newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 			return null;

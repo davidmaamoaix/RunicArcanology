@@ -7,8 +7,11 @@ import net.minecraft.item.Item;
 
 public class StandardItemBase extends Item implements Registrable {
 
+	protected String name;
+	
 	public StandardItemBase(String name) {
 		super();
+		this.name = name;
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
 		RAItems.addItem(name, this);

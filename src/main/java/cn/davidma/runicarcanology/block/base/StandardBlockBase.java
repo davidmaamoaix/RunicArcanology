@@ -11,7 +11,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
-public class StandardBlockBase extends Block implements Registrable{
+public class StandardBlockBase extends Block implements Registrable {
+	
+	protected String name;
 
 	public StandardBlockBase(String name, Material material) {
 		this(name, material, null);
@@ -19,6 +21,7 @@ public class StandardBlockBase extends Block implements Registrable{
 
 	public StandardBlockBase(String name, Material material, List<String> tooltip) {
 		super(material);
+		this.name = name;
 		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
 		RABlocks.addBlock(name, this);
