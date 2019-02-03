@@ -3,6 +3,8 @@ package cn.davidma.runicarcanology.block.base;
 import com.google.common.base.Predicate;
 
 import cn.davidma.runicarcanology.tileentity.ActivatableRuneTileEntity;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockButton;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
@@ -28,8 +30,9 @@ public abstract class PlacableRune<TE extends ActivatableRuneTileEntity> extends
 		}
 	});
 	
-	public PlacableRune(String name, Material material) {
-		super(name, material);
+	public PlacableRune(String name) {
+		super(name, Material.IRON);
+		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
 	}
 	
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -41,15 +44,28 @@ public abstract class PlacableRune<TE extends ActivatableRuneTileEntity> extends
 		return true;
 	}
 	
+	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return DOWN;
 	}
 	
+	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return NULL_AABB;
 	}
 	
-	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-		return BlockFaceShape.UNDEFINED;
+	private static boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing) {
+		
+		// Straight from the BlockButton class as I'm lazy.
+		BlockPos blockPos = pos.offset(facing.getOpposite());
+		IBlockState state = worldIn.getBlockState(blockPos);
+		boolean flag = state.getBlockFaceShape(worldIn, blockPos, facing) == BlockFaceShape.SOLID;
+		Block block = state.getBlock();
+		
+		if (facing == EnumFacing.UP) {
+			return state.isTopSolid() || !isExceptionBlockForAttaching(block) && flag;
+		} else {
+			return !isExceptBlockForAttachWithPiston(block) && flag;
+		}
 	}
 }
