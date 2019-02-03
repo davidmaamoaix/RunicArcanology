@@ -13,9 +13,7 @@ public class LineParticle extends MovingParticle {
 
 	@Override
 	protected TextureAtlasSprite getTexture() {
-		
-		// Might just get away using to same texture XD.
-		return TextureStitcher.LIGHT_PARTICLE;
+		return TextureStitcher.LINE_PARTICLE;
 	}
 
 	@Override

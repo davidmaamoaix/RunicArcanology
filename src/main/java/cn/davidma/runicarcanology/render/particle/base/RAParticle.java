@@ -32,11 +32,6 @@ public abstract class RAParticle extends Particle {
 	}
 	
 	@Override
-	public boolean shouldDisableDepth() {
-		return true;
-	}
-	
-	@Override
 	public int getFXLayer() {
 		return 1;
 	}

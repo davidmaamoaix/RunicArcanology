@@ -27,14 +27,13 @@ public class AnimationHelper {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(0, 0, 0);
 		GlStateManager.disableLighting();
-		GlStateManager.enableBlend();
+		GlStateManager.disableBlend();
 		if (color.length == 3) GL11.glColor4f(color[0], color[1], color[2], 1);
 		if (color.length == 4) GL11.glColor4f(color[0], color[1], color[2], color[3]);
 		
 		// Hypotenuse.
 		double radius = diameter / 2;
 		double slant = Math.sqrt(radius * radius * 2);
-		
 		bufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 		
 		// Four vertices.

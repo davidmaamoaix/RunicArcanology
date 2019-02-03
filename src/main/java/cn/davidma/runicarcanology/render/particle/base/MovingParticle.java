@@ -1,5 +1,7 @@
 package cn.davidma.runicarcanology.render.particle.base;
 
+import org.lwjgl.opengl.GL11;
+
 import cn.davidma.runicarcanology.util.MathHelper;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
@@ -34,7 +36,6 @@ public abstract class MovingParticle extends RAParticle {
 	@Override
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 		if (MathHelper.distance(this.fromX, this.fromY, this.fromZ, this.posX, this.posY, this.posZ) > this.totalDistance) this.setExpired();
-		System.out.println(this.totalDistance + " / " + MathHelper.distance(this.fromX, this.fromY, this.fromZ, this.posX, this.posY, this.posZ));
 		super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
 }

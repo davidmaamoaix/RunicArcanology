@@ -38,6 +38,7 @@ public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchT
 		this.setHardness(25);
 		this.BOUNDING_BOX = new AxisAlignedBB(0, 0, 0, 1, 0.1875D, 1);
 		this.COLLISION_BOX = new AxisAlignedBB(0, 0, 0, 1, 0.125D, 1);
+		this.lightValue = 255;
 	}
 	
 	@Override
@@ -81,5 +82,10 @@ public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchT
 			}
 		}
 		super.breakBlock(world, pos, state);
+	}
+	
+	@Override
+	public int getLightOpacity(IBlockState state) {
+		return 0;
 	}
 }

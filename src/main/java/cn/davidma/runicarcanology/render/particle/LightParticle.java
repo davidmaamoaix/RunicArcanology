@@ -17,7 +17,7 @@ public class LightParticle extends MovingParticle {
 	public LightParticle(World world, double fromX, double fromY, double fromZ, double toX, double toY, double toZ, double speed) {
 		super(world, fromX, fromY, fromZ, toX, toY, toZ, speed);
 		this.canCollide = false;
-		this.multipleParticleScaleBy(0.6F);
+		this.multipleParticleScaleBy(0.3F);
 		this.setAlphaF(MathHelper.randomFloat(0.5F, 1F));
 	}
 
