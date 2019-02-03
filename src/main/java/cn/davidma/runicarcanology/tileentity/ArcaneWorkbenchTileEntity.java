@@ -10,6 +10,7 @@ import cn.davidma.runicarcanology.proxy.CommonProxy;
 import cn.davidma.runicarcanology.recipes.CraftingHelper;
 import cn.davidma.runicarcanology.reference.Settings;
 import cn.davidma.runicarcanology.render.rune.EnumRuneAnimation;
+import cn.davidma.runicarcanology.tileentity.base.RuneHandlingTileEntity;
 import cn.davidma.runicarcanology.util.Msg;
 import cn.davidma.runicarcanology.util.NBTHelper;
 import net.minecraft.block.state.IBlockState;

@@ -2,12 +2,14 @@ package cn.davidma.runicarcanology.block.base;
 
 import com.google.common.base.Predicate;
 
-import cn.davidma.runicarcanology.tileentity.PlacableRuneTileEntity;
+import cn.davidma.runicarcanology.tileentity.base.PlacableRuneTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockButton;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,13 +21,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public abstract class PlacableRune<TE extends PlacableRuneTileEntity> extends TransparentTileEntityBlock<TE> {
+public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEntity> {
 
 	protected static final AxisAlignedBB DOWN = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 0.125, 0.75);
 	protected static final AxisAlignedBB UP = new AxisAlignedBB(0.25, 0.875, 0.25, 0.75, 1, 0.75);
-	protected static final AxisAlignedBB NORTH = new AxisAlignedBB(0.3125D, 0.20000000298023224D, 0.625D, 0.6875D, 0.800000011920929D, 1.0D);
-    protected static final AxisAlignedBB SOUTH = new AxisAlignedBB(0.3125D, 0.20000000298023224D, 0.0D, 0.6875D, 0.800000011920929D, 0.375D);
-    protected static final AxisAlignedBB WEST = new AxisAlignedBB(0.875, 0.25, 0.25, 1.0D, 0.75, 0.75);
+	protected static final AxisAlignedBB NORTH = new AxisAlignedBB(0.25, 0.25, 0.875, 0.75, 0.75, 1);
+    protected static final AxisAlignedBB SOUTH = new AxisAlignedBB(0.25, 0.25, 0.0D, 0.75, 0.75, 0.125);
+    protected static final AxisAlignedBB WEST = new AxisAlignedBB(0.875, 0.25, 0.25, 1, 0.75, 0.75);
     protected static final AxisAlignedBB EAST = new AxisAlignedBB(0.0D, 0.25, 0.25, 0.125, 0.75, 0.75);
 	
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
@@ -36,19 +38,22 @@ public abstract class PlacableRune<TE extends PlacableRuneTileEntity> extends Tr
 		}
 	});
 	
-	public PlacableRune(String name) {
+	private Class<? extends PlacableRuneTileEntity> runeTEClass;
+	
+	public PlacableRune(String name, Class<? extends PlacableRuneTileEntity> runeTEClass) {
 		super(name, Material.IRON);
+		this.runeTEClass = runeTEClass;
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
 	}
 	
-	/*public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (world.isRemote) return true;
 		TileEntity tileEntity = world.getTileEntity(pos);
-		if (tileEntity == null || !(tileEntity instanceof ActivatableRuneTileEntity)) return true;
-		((ActivatableRuneTileEntity) tileEntity).playerClick();
+		if (tileEntity == null || !(tileEntity instanceof PlacableRuneTileEntity)) return true;
+		((PlacableRuneTileEntity) tileEntity).playerClick();
 		
 		return true;
-	}*/
+	}
 	
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -123,6 +128,38 @@ public abstract class PlacableRune<TE extends PlacableRuneTileEntity> extends Tr
 			return state.isTopSolid() || !isExceptionBlockForAttaching(block) && flag;
 		} else {
 			return !isExceptBlockForAttachWithPiston(block) && flag;
+		}
+	}
+	
+	public int getMetaFromState(IBlockState state) {
+		return ((EnumFacing) state.getValue(FACING)).ordinal();
+	}
+	
+	public IBlockState getStateFromMeta(int meta) {
+		try {
+			return this.getDefaultState().withProperty(FACING, EnumFacing.values()[meta]);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return this.getDefaultState();
+		}
+	}
+	
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {FACING});
+	}
+
+	@Override
+	public Class<PlacableRuneTileEntity> getTileEntityClass() {
+		return (Class<PlacableRuneTileEntity>) this.runeTEClass;
+	}
+
+	@Override
+	public PlacableRuneTileEntity createTileEntity(World world, IBlockState state) {
+		try {
+			return this.runeTEClass.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }

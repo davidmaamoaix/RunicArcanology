@@ -2,7 +2,7 @@ package cn.davidma.runicarcanology.network.handler;
 
 import cn.davidma.runicarcanology.network.client.RuneAnimationMessage;
 import cn.davidma.runicarcanology.render.rune.EnumRuneAnimation;
-import cn.davidma.runicarcanology.tileentity.RuneHandlingTileEntity;
+import cn.davidma.runicarcanology.tileentity.base.RuneHandlingTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.tileentity.TileEntity;

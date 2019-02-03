@@ -1,4 +1,4 @@
-package cn.davidma.runicarcanology.tileentity;
+package cn.davidma.runicarcanology.tileentity.base;
 
 import java.util.ArrayList;
 import java.util.HashMap;

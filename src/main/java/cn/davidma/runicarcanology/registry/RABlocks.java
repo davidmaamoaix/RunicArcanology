@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import cn.davidma.runicarcanology.block.ArcaneWorkbench;
+import cn.davidma.runicarcanology.block.base.PlacableRune;
 import cn.davidma.runicarcanology.block.base.StandardBlockBase;
+import cn.davidma.runicarcanology.tileentity.rune.RuneNatureGiftTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -18,6 +20,7 @@ public class RABlocks {
 	
 	public static void instatiateAllBlocks() {
 		new ArcaneWorkbench("arcane_workbench");
+		new PlacableRune("rune_nature_gift", RuneNatureGiftTileEntity.class);
 	}
 	
 	public static void addBlock(String name, Block block) {

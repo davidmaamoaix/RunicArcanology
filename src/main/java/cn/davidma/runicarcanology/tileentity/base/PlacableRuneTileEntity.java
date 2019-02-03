@@ -1,4 +1,4 @@
-package cn.davidma.runicarcanology.tileentity;
+package cn.davidma.runicarcanology.tileentity.base;
 
 import com.google.common.base.Predicate;
 
@@ -15,7 +15,7 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 	private boolean isActive;
 	
 	public void playerClick() {
-		for (RuneAnimation animation: this.animations) {
+		/*for (RuneAnimation animation: this.animations) {
 			if (animation instanceof ActivatableRuneAnimation) {
 				ActivatableRuneAnimation activatable = (ActivatableRuneAnimation) animation;
 				if (this.isActive) {
@@ -25,7 +25,7 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 				}
 			}
 		}
-		this.isActive = !this.isActive;
+		this.isActive = !this.isActive;*/
 	}
 	
 	public void setRuneFacing(EnumFacing facing) {
