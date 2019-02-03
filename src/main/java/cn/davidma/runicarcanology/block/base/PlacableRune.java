@@ -2,13 +2,14 @@ package cn.davidma.runicarcanology.block.base;
 
 import com.google.common.base.Predicate;
 
-import cn.davidma.runicarcanology.tileentity.ActivatableRuneTileEntity;
+import cn.davidma.runicarcanology.tileentity.PlacableRuneTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockButton;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -18,9 +19,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public abstract class PlacableRune<TE extends ActivatableRuneTileEntity> extends TransparentTileEntityBlock<TE> {
+public abstract class PlacableRune<TE extends PlacableRuneTileEntity> extends TransparentTileEntityBlock<TE> {
 
 	protected static final AxisAlignedBB DOWN = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 0.125, 0.75);
+	protected static final AxisAlignedBB UP = new AxisAlignedBB(0.25, 0.875, 0.25, 0.75, 1, 0.75);
+	protected static final AxisAlignedBB NORTH = new AxisAlignedBB(0.3125D, 0.20000000298023224D, 0.625D, 0.6875D, 0.800000011920929D, 1.0D);
+    protected static final AxisAlignedBB SOUTH = new AxisAlignedBB(0.3125D, 0.20000000298023224D, 0.0D, 0.6875D, 0.800000011920929D, 0.375D);
+    protected static final AxisAlignedBB WEST = new AxisAlignedBB(0.875, 0.25, 0.25, 1.0D, 0.75, 0.75);
+    protected static final AxisAlignedBB EAST = new AxisAlignedBB(0.0D, 0.25, 0.25, 0.125, 0.75, 0.75);
 	
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
 
@@ -35,14 +41,14 @@ public abstract class PlacableRune<TE extends ActivatableRuneTileEntity> extends
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
 	}
 	
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	/*public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (world.isRemote) return true;
 		TileEntity tileEntity = world.getTileEntity(pos);
 		if (tileEntity == null || !(tileEntity instanceof ActivatableRuneTileEntity)) return true;
 		((ActivatableRuneTileEntity) tileEntity).playerClick();
 		
 		return true;
-	}
+	}*/
 	
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -54,12 +60,63 @@ public abstract class PlacableRune<TE extends ActivatableRuneTileEntity> extends
 		return NULL_AABB;
 	}
 	
-	private static boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing) {
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase player) {
+		EnumFacing newFacing = EnumFacing.NORTH;
+		if (canPlaceBlock(world, pos, facing)) {
+			newFacing = facing;
+		} else {
+			for (EnumFacing i: EnumFacing.values()) {
+				if (canPlaceBlock(world, pos, i)) {
+					newFacing = i;
+				}
+			}
+		}
 		
-		// Straight from the BlockButton class as I'm lazy.
+		TileEntity tileEntity = world.getTileEntity(pos);
+		if (tileEntity != null && tileEntity instanceof PlacableRuneTileEntity) {
+			((PlacableRuneTileEntity) tileEntity).setRuneFacing(newFacing);
+		}
+		
+		return this.getDefaultState().withProperty(FACING, newFacing);
+	}
+	
+	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side) {
+		return canPlaceBlock(world, pos, side);
+	}
+	
+	public boolean canPlaceBlockAt(World world, BlockPos pos) {
+		for (EnumFacing i: EnumFacing.values()) {
+			if (canPlaceBlock(world, pos, i)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	// Straight from the BlockButton class as I'm lazy.
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
+		if (this.checkForDrop(world, pos, state) && !canPlaceBlock(world, pos, (EnumFacing) state.getValue(FACING))) {
+			this.dropBlockAsItem(world, pos, state, 0);
+			world.setBlockToAir(pos);
+		}
+	}
+	
+	// Straight from the BlockButton class as I'm lazy.
+	private boolean checkForDrop(World world, BlockPos pos, IBlockState state) {
+		if (this.canPlaceBlockAt(world, pos)) {
+			return true;
+		} else {
+			this.dropBlockAsItem(world, pos, state, 0);
+			world.setBlockToAir(pos);
+			return false;
+		}
+	}
+	
+	// Straight from the BlockButton class as I'm lazy.
+	private static boolean canPlaceBlock(World world, BlockPos pos, EnumFacing facing) {
 		BlockPos blockPos = pos.offset(facing.getOpposite());
-		IBlockState state = worldIn.getBlockState(blockPos);
-		boolean flag = state.getBlockFaceShape(worldIn, blockPos, facing) == BlockFaceShape.SOLID;
+		IBlockState state = world.getBlockState(blockPos);
+		boolean flag = state.getBlockFaceShape(world, blockPos, facing) == BlockFaceShape.SOLID;
 		Block block = state.getBlock();
 		
 		if (facing == EnumFacing.UP) {

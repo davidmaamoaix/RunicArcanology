@@ -6,7 +6,8 @@ import net.minecraft.nbt.NBTTagCompound;
 public class NBTHelper {
 
 	// Activatable Rune.
-	public static String RUNE_WORKING = "isWorking";
+	public static String IS_ACTIVE = "isActive";
+	public static String RUNE_FACING = "runeFacing";
 	
 	// Animation.
 	public static String ANIMATION_LIST = "animationList";
