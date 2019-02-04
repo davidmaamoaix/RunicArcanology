@@ -2,6 +2,7 @@ package cn.davidma.runicarcanology.block.base;
 
 import com.google.common.base.Predicate;
 
+import cn.davidma.runicarcanology.registry.CustomStateMapper;
 import cn.davidma.runicarcanology.tileentity.EnumRuneTileEntity;
 import cn.davidma.runicarcanology.tileentity.base.PlacableRuneTileEntity;
 import net.minecraft.block.Block;
@@ -22,6 +23,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 
 public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEntity> {
 
@@ -172,5 +174,11 @@ public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEnt
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	@Override
+	public void registerModels() {
+		ModelLoader.setCustomStateMapper(this, new CustomStateMapper());
+		super.registerModels();
 	}
 }
