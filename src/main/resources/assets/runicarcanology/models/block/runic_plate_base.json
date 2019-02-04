@@ -6,93 +6,93 @@
 	"elements": [
 		{
 			"name": "base",
-			"from": [4.5, 0, 5],
-			"to": [11.5, 1, 10],
+			"from": [4.5, 0, 5.5],
+			"to": [11.5, 1, 10.5],
 			"faces": {
-				"north": {"uv": [1, 3, 15, 4], "texture": "runic_plate"},
-				"east": {"uv": [14, 3, 15, 13], "texture": "runic_plate"},
-				"south": {"uv": [1, 12, 15, 13], "texture": "runic_plate"},
-				"west": {"uv": [1, 3, 2, 13], "texture": "runic_plate"},
-				"up": {"uv": [1, 3, 15, 13], "texture": "runic_plate"},
-				"down": {"uv": [1, 3, 15, 13], "texture": "runic_plate"}
+				"north": {"uv": [1, 3, 15, 4], "texture": "#runic_plate"},
+				"east": {"uv": [14, 3, 15, 13], "texture": "#runic_plate"},
+				"south": {"uv": [1, 12, 15, 13], "texture": "#runic_plate"},
+				"west": {"uv": [1, 3, 2, 13], "texture": "#runic_plate"},
+				"up": {"uv": [1, 3, 15, 13], "texture": "#runic_plate"},
+				"down": {"uv": [1, 3, 15, 13], "texture": "#runic_plate"}
 			}
 		},
 		{
 			"name": "sideN",
-			"from": [5.5, 0, 4],
-			"to": [10.5, 1, 5],
+			"from": [5.5, 0, 4.5],
+			"to": [10.5, 1, 5.5],
 			"faces": {
-				"north": {"uv": [3, 1, 13, 2], "texture": "runic_plate"},
-				"east": {"uv": [12, 2, 14, 3], "texture": "runic_plate"},
-				"south": {"uv": [3, 2, 13, 3], "texture": "runic_plate"},
-				"west": {"uv": [2, 2, 4, 3], "texture": "runic_plate"},
-				"up": {"uv": [3, 1, 13, 3], "texture": "runic_plate"},
-				"down": {"uv": [3, 1, 13, 3], "texture": "runic_plate"}
+				"north": {"uv": [3, 1, 13, 2], "texture": "#runic_plate"},
+				"east": {"uv": [12, 2, 14, 3], "texture": "#runic_plate"},
+				"south": {"uv": [3, 2, 13, 3], "texture": "#runic_plate"},
+				"west": {"uv": [2, 2, 4, 3], "texture": "#runic_plate"},
+				"up": {"uv": [3, 1, 13, 3], "texture": "#runic_plate"},
+				"down": {"uv": [3, 1, 13, 3], "texture": "#runic_plate"}
 			}
 		},
 		{
 			"name": "sideS",
-			"from": [5.5, 0, 10],
-			"to": [10.5, 1, 11],
+			"from": [5.5, 0, 10.5],
+			"to": [10.5, 1, 11.5],
 			"faces": {
-				"north": {"uv": [3, 13, 13, 14], "texture": "runic_plate"},
-				"east": {"uv": [2, 2, 4, 3], "texture": "runic_plate"},
-				"south": {"uv": [3, 14, 13, 15], "texture": "runic_plate"},
-				"west": {"uv": [12, 2, 14, 3], "texture": "runic_plate"},
-				"up": {"uv": [3, 13, 13, 15], "texture": "runic_plate"},
-				"down": {"uv": [3, 13, 13, 15], "texture": "runic_plate"}
+				"north": {"uv": [3, 13, 13, 14], "texture": "#runic_plate"},
+				"east": {"uv": [2, 2, 4, 3], "texture": "#runic_plate"},
+				"south": {"uv": [3, 14, 13, 15], "texture": "#runic_plate"},
+				"west": {"uv": [12, 2, 14, 3], "texture": "#runic_plate"},
+				"up": {"uv": [3, 13, 13, 15], "texture": "#runic_plate"},
+				"down": {"uv": [3, 13, 13, 15], "texture": "#runic_plate"}
 			}
 		},
 		{
 			"name": "corner_0",
-			"from": [5, 0, 4.5],
-			"to": [5.5, 1, 5],
+			"from": [5, 0, 10.5],
+			"to": [5.5, 1, 11],
 			"faces": {
-				"north": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"east": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"south": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"west": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"up": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"down": {"uv": [2, 2, 3, 3], "texture": "runic_plate"}
+				"north": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"east": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"south": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"west": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"up": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"down": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"}
 			}
 		},
 		{
 			"name": "corner_1",
-			"from": [10.5, 0, 4.5],
-			"to": [11, 1, 5],
+			"from": [10.5, 0, 5],
+			"to": [11, 1, 5.5],
 			"faces": {
-				"north": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"east": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"south": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"west": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"up": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"down": {"uv": [2, 2, 3, 3], "texture": "runic_plate"}
+				"north": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"east": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"south": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"west": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"up": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"down": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"}
 			}
 		},
 		{
 			"name": "corner_2",
-			"from": [5, 0, 10],
-			"to": [5.5, 1, 10.5],
+			"from": [5, 0, 5],
+			"to": [5.5, 1, 5.5],
 			"faces": {
-				"north": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"east": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"south": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"west": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"up": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"down": {"uv": [2, 2, 3, 3], "texture": "runic_plate"}
+				"north": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"east": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"south": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"west": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"up": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"down": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"}
 			}
 		},
 		{
 			"name": "corner_3",
-			"from": [10.5, 0, 10],
-			"to": [11, 1, 10.5],
+			"from": [10.5, 0, 10.5],
+			"to": [11, 1, 11],
 			"faces": {
-				"north": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"east": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"south": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"west": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"up": {"uv": [2, 2, 3, 3], "texture": "runic_plate"},
-				"down": {"uv": [2, 2, 3, 3], "texture": "runic_plate"}
+				"north": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"east": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"south": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"west": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"up": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"},
+				"down": {"uv": [2, 2, 3, 3], "texture": "#runic_plate"}
 			}
 		}
 	],
