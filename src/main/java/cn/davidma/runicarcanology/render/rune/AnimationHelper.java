@@ -27,7 +27,7 @@ public class AnimationHelper {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(0, 0, 0);
 		GlStateManager.disableLighting();
-		GlStateManager.disableBlend();
+		GlStateManager.enableBlend();
 		if (color.length == 3) GL11.glColor4f(color[0], color[1], color[2], 1);
 		if (color.length == 4) GL11.glColor4f(color[0], color[1], color[2], color[3]);
 		

@@ -6,7 +6,9 @@ import cn.davidma.runicarcanology.reference.Info;
 import cn.davidma.runicarcanology.registry.RAItems;
 import cn.davidma.runicarcanology.render.particle.TextureStitcher;
 import cn.davidma.runicarcanology.render.tesr.ArcaneWorkbenchTESR;
+import cn.davidma.runicarcanology.render.tesr.base.RuneHandlingTESR;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
+import cn.davidma.runicarcanology.tileentity.base.RuneHandlingTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -29,6 +31,7 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void registerTileEntitySpecialRenderer() {
+		ClientRegistry.bindTileEntitySpecialRenderer(RuneHandlingTileEntity.class, new RuneHandlingTESR());
 		ClientRegistry.bindTileEntitySpecialRenderer(ArcaneWorkbenchTileEntity.class, new ArcaneWorkbenchTESR());
 	}
 

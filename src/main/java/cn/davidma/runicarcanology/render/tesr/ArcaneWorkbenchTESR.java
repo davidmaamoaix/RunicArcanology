@@ -49,19 +49,13 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 	public void render(ArcaneWorkbenchTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		
 		// Render passive fx.
-		this.renderRuneAnimation(te, x, y, z);
+		this.renderQuartz(te, x, y, z);
 		this.renderCrafting(te, x, y, z);
 	}
 	
-	private void renderRuneAnimation(ArcaneWorkbenchTileEntity te, double x, double y, double z) {
+	protected void renderQuartz(ArcaneWorkbenchTileEntity te, double x, double y, double z) {
 		ItemStack stack = new ItemStack(Blocks.QUARTZ_BLOCK);
-		
 		float worldTime = te.getWorld().getTotalWorldTime();
-		
-		// Tick animations.
-		for (RuneAnimation i: te.getAnimations()) {
-			i.draw(x, y, z, worldTime);
-		}
 		
 		GlStateManager.pushMatrix();
 		

@@ -12,6 +12,7 @@ public class CircleStats {
 	private double rotationSpeed;
 	private double rotationOffset;
 	private double xOffset, yOffset, zOffset;
+	private double initialRotation;
 	private float[] color;
 
 	public CircleStats(EnumCircle circle, EnumFacing facing, double rotationSpeed, double diameter) {
@@ -27,6 +28,7 @@ public class CircleStats {
 		this.rotationSpeed = rotationSpeed;
 		this.rotationOffset = 0;
 		this.diameter = diameter;
+		this.initialRotation = 0;
 	}
 	
 	public EnumCircle getCircle() {
@@ -91,5 +93,13 @@ public class CircleStats {
 	
 	public void setColor(float[] color) {
 		this.color = color;
+	}
+
+	public double getInitialRotation() {
+		return this.initialRotation;
+	}
+	
+	public void setInitialRotation(double initialRotation) {
+		this.initialRotation = initialRotation;
 	}
 }
