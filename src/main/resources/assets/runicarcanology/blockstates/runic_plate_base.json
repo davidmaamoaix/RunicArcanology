@@ -1,8 +1,13 @@
 {
     "forge_marker": 1,
     "variants": {
-        "normal": {
-            "model": "runicarcanology:runic_plate_base"
+        "facing": {
+            "up": {"model": "runicarcanology:runic_plate_base"},
+            "down": {"model": "runicarcanology:runic_plate_base", "x": 180},
+            "north": {"model": "runicarcanology:runic_plate_base", "x": 270, "y": 180},
+            "south": {"model": "runicarcanology:runic_plate_base", "x": 270},
+            "east": {"model": "runicarcanology:runic_plate_base", "x": 270, "y": 270},
+            "west": {"model": "runicarcanology:runic_plate_base", "x": 270, "y": 90}
         }
     }
 }

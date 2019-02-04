@@ -49,12 +49,12 @@ public abstract class TransparentTileEntityBlock<TE extends TileEntity> extends 
 	}
 	
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState bs, IBlockAccess source, BlockPos pos) {
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return this.BOUNDING_BOX;
 	}
 	
 	@Override
-	public void addCollisionBoxToList(IBlockState bs, World world, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entity, boolean isActualState) {
+	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entity, boolean isActualState) {
 		super.addCollisionBoxToList(pos, entityBox, collidingBoxes, this.COLLISION_BOX);
 	}
 }
