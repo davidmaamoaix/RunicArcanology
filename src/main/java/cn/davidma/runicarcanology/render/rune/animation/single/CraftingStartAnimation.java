@@ -1,4 +1,4 @@
-package cn.davidma.runicarcanology.render.rune.animation.activatable;
+package cn.davidma.runicarcanology.render.rune.animation.single;
 
 import cn.davidma.runicarcanology.reference.Settings;
 import cn.davidma.runicarcanology.render.rune.AnimationHelper;
@@ -21,16 +21,13 @@ public class CraftingStartAnimation extends SingleUseRuneAnimation {
 	public CraftingStartAnimation() {
 		super();
 		CircleStats base = new CircleStats(EnumCircle.DASH_CIRCLE, EnumFacing.UP, 3, 0);
-		base.setyOffset(-0.5 + AnimationHelper.DISTINCTION_OFFSET);
 		this.circles.add(base);
 		for (int i = 0; i < 3; i++) {
 			CircleStats square = new CircleStats(EnumCircle.SQUARE, EnumFacing.UP, -2, 0);
 			square.setRotationOffset(i * 30);
-			square.setyOffset(-0.5 + AnimationHelper.DISTINCTION_OFFSET);
 			this.circles.add(square);
 		}
 		CircleStats top = new CircleStats(EnumCircle.RUNE_CIRCLE, EnumFacing.UP, 1, 0);
-		top.setyOffset(-0.5 + AnimationHelper.DISTINCTION_OFFSET);
 		this.circles.add(top);
 	}
 	

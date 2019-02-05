@@ -18,7 +18,7 @@ public class RuneHandlingTESR extends TileEntitySpecialRenderer<RuneHandlingTile
 		
 		// Center of block (default).
 		double xOffset = 0.5;
-		double yOffset = 0.5;
+		double yOffset = AnimationHelper.DISTINCTION_OFFSET;
 		double zOffset = 0.5;
 		
 		// Tick animations.

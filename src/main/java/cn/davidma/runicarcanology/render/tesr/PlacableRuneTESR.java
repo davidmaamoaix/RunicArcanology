@@ -1,5 +1,6 @@
 package cn.davidma.runicarcanology.render.tesr;
 
+import cn.davidma.runicarcanology.render.rune.AnimationHelper;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import cn.davidma.runicarcanology.render.tesr.base.RuneHandlingTESR;
 import cn.davidma.runicarcanology.tileentity.base.PlacableRuneTileEntity;

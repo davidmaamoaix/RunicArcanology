@@ -1,12 +1,15 @@
 package cn.davidma.runicarcanology.render.rune;
 
-import cn.davidma.runicarcanology.render.rune.animation.activatable.CraftingStartAnimation;
+import cn.davidma.runicarcanology.render.rune.animation.ambient.NatureGiftAmbient;
 import cn.davidma.runicarcanology.render.rune.animation.ambient.WorkbenchAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
+import cn.davidma.runicarcanology.render.rune.animation.single.CraftingStartAnimation;
 
 public enum EnumRuneAnimation {
 
-	WORKBENCH_PASSIVE(WorkbenchAnimation.class), 
+	WORKBENCH_AMBIENT(WorkbenchAnimation.class),
+	NATURE_GIFT_AMBIENT(NatureGiftAmbient.class),
+	
 	CRAFTING_START(CraftingStartAnimation.class);
 	
 	private Class<? extends RuneAnimation> runeClass;

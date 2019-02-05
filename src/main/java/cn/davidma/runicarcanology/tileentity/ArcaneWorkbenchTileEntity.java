@@ -50,7 +50,7 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 	
 	@Override
 	protected void createAnimations() {
-		this.addPassiveAnimation(EnumRuneAnimation.WORKBENCH_PASSIVE);
+		this.addPassiveAnimation(EnumRuneAnimation.WORKBENCH_AMBIENT);
 	}
 	
 	@Override
