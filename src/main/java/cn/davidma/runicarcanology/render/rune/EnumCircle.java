@@ -8,7 +8,8 @@ public enum EnumCircle {
 	CIRCLE("circle"),
 	DASH_CIRCLE("dash_circle"),
 	RUNE_CIRCLE("rune_circle"),
-	SQUARE("square");
+	SQUARE("square"),
+	NATURE_GIFT("nature_gift");
 	
 	private ResourceLocation texture;
 	

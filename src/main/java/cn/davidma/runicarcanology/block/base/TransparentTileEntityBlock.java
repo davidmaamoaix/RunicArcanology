@@ -14,9 +14,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public abstract class TransparentTileEntityBlock<TE extends TileEntity> extends TileEntityBlock<TE> {
-	
-	protected static AxisAlignedBB BOUNDING_BOX = new AxisAlignedBB(0, 0, 0, 1, 1, 1);
-	protected static AxisAlignedBB COLLISION_BOX = new AxisAlignedBB(0, 0, 0, 1, 1, 1);
 
 	public TransparentTileEntityBlock(String name, Material material) {
 		super(name, material);
@@ -46,15 +43,5 @@ public abstract class TransparentTileEntityBlock<TE extends TileEntity> extends 
 	@Override
 	public boolean causesSuffocation(IBlockState state) {
 		return false;
-	}
-	
-	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		return this.BOUNDING_BOX;
-	}
-	
-	@Override
-	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entity, boolean isActualState) {
-		super.addCollisionBoxToList(pos, entityBox, collidingBoxes, this.COLLISION_BOX);
 	}
 }

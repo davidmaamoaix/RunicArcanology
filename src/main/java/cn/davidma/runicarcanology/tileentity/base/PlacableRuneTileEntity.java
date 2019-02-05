@@ -3,6 +3,7 @@ package cn.davidma.runicarcanology.tileentity.base;
 import com.google.common.base.Predicate;
 
 import cn.davidma.runicarcanology.render.rune.animation.core.ActivatableRuneAnimation;
+import cn.davidma.runicarcanology.render.rune.animation.core.CircleStats;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import cn.davidma.runicarcanology.util.NBTHelper;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,8 +29,17 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 		this.isActive = !this.isActive;*/
 	}
 	
+	public EnumFacing getRuneFacing() {
+		return this.runeFacing;
+	}
+	
 	public void setRuneFacing(EnumFacing facing) {
 		this.runeFacing = facing;
+		for (RuneAnimation i: this.animations) {
+			for (CircleStats circle: i.circles) {
+				circle.setFacing(this.runeFacing);
+			}
+		}
 	} 
 	
 	public boolean isActive() {

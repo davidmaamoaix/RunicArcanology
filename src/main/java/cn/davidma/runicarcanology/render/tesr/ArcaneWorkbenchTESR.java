@@ -12,7 +12,9 @@ import cn.davidma.runicarcanology.render.rune.AnimationHelper;
 import cn.davidma.runicarcanology.render.rune.EnumCircle;
 import cn.davidma.runicarcanology.render.rune.animation.ambient.WorkbenchAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
+import cn.davidma.runicarcanology.render.tesr.base.RuneHandlingTESR;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
+import cn.davidma.runicarcanology.tileentity.base.RuneHandlingTileEntity;
 import cn.davidma.runicarcanology.util.MathHelper;
 import net.minecraft.block.BlockPressurePlate;
 import net.minecraft.client.Minecraft;
@@ -37,7 +39,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkbenchTileEntity> {
+public class ArcaneWorkbenchTESR extends RuneHandlingTESR {
 	
 	private static double MAX_RADIUS = 1.6D;
 	private static int START_TICK = 20;
@@ -46,14 +48,15 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 	private static int VANISH_LENGTH = 20;
 	
 	@Override
-	public void render(ArcaneWorkbenchTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+	public void render(RuneHandlingTileEntity te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+		super.render(te, x, y, z, partialTicks, destroyStage, alpha);
 		
 		// Render passive fx.
 		this.renderQuartz(te, x, y, z);
 		this.renderCrafting(te, x, y, z);
 	}
 	
-	protected void renderQuartz(ArcaneWorkbenchTileEntity te, double x, double y, double z) {
+	protected void renderQuartz(RuneHandlingTileEntity te, double x, double y, double z) {
 		ItemStack stack = new ItemStack(Blocks.QUARTZ_BLOCK);
 		float worldTime = te.getWorld().getTotalWorldTime();
 		
@@ -70,7 +73,9 @@ public class ArcaneWorkbenchTESR extends TileEntitySpecialRenderer<ArcaneWorkben
 		GlStateManager.popMatrix();
 	}
 	
-	private void renderCrafting(ArcaneWorkbenchTileEntity te, double x, double y, double z) {
+	private void renderCrafting(RuneHandlingTileEntity tileEntity, double x, double y, double z) {
+		if (!(tileEntity instanceof ArcaneWorkbenchTileEntity)) return;
+		ArcaneWorkbenchTileEntity te = (ArcaneWorkbenchTileEntity) tileEntity;
 		if (!te.isCrafting()) return;
 		List<ItemStack> ingredients = te.getTempIngredients();
 		if (ingredients == null) return;

@@ -18,9 +18,9 @@ public class CircleStats {
 	public CircleStats(EnumCircle circle, EnumFacing facing, double rotationSpeed, double diameter) {
 		
 		// Center of block (default).
-		this.xOffset = 0.5;
-		this.yOffset = AnimationHelper.DISTINCTION_OFFSET;
-		this.zOffset = 0.5;
+		this.xOffset = 0;
+		this.yOffset = 0;
+		this.zOffset = 0;
 		
 		this.color = new float[] {1, 1, 1};
 		this.circle = circle;
@@ -37,6 +37,10 @@ public class CircleStats {
 	
 	public EnumFacing getFacing() {
 		return this.facing;
+	}
+	
+	public void setFacing(EnumFacing facing) {
+		this.facing = facing;
 	}
 
 	public double getDiameter() {

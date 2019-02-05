@@ -47,7 +47,6 @@ public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEnt
 	
 	public PlacableRune(String name) {
 		super(name, Material.IRON);
-		this.COLLISION_BOX = NULL_AABB;
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
 	}
 	
@@ -74,8 +73,8 @@ public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEnt
 	}
 	
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-		return NULL_AABB;
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess world, BlockPos pos) {
+		return  NULL_AABB;
 	}
 	
 	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase player) {

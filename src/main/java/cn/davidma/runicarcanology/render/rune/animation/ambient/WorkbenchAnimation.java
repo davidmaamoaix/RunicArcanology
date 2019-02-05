@@ -13,6 +13,7 @@ public class WorkbenchAnimation extends RuneAnimation {
 		super();
 		
 		CircleStats base = new CircleStats(EnumCircle.RUNE_CIRCLE, EnumFacing.UP, -2, 2);
+		base.setyOffset(-0.5 + AnimationHelper.DISTINCTION_OFFSET);
 		this.circles.add(base);
 	}
 }
