@@ -20,17 +20,8 @@ public class PlacableRuneTESR extends RuneHandlingTESR {
 		
 		// Center of block (default).
 		double xOffset = 0.5;
-		double yOffset = 0.5;
+		double yOffset = AnimationHelper.DISTINCTION_OFFSET;
 		double zOffset = 0.5;
-		
-		switch(facing) {
-			case UP: break; // Do nothing.
-			case DOWN: yOffset *= -1; break; // Negative yOffset.
-			case NORTH: yOffset = -zOffset; zOffset = -yOffset; break;
-			case SOUTH: yOffset = zOffset; zOffset = yOffset; break;
-			case EAST: xOffset = yOffset; yOffset = xOffset; break;
-			case WEST: xOffset = -yOffset; yOffset = -xOffset; break;
-		}
 		
 		// Tick animations.
 		for (RuneAnimation i: te.getAnimations()) {

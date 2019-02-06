@@ -38,6 +38,17 @@ public class RuneAnimation {
 			double newZ = z + i.getzOffset();
 			double initialRotation = i.getInitialRotation();
 			float[] color = i.getColor();
+			
+			double temp;
+			switch(facing) {
+				case UP: break; // Do nothing.
+				case DOWN: newY *= -1; break; // Negative yOffset.
+				case NORTH: temp = newY; newY = -newZ; newZ = -temp; break; // y, z = -z, -y.
+				case SOUTH: temp = newY; newY = newZ; newZ = temp; break; // Swap y & z.
+				case EAST: temp = newX; newX = newY; newY = temp; break;
+				case WEST: temp = newX; newX = -newY; newY = -temp; break;
+			}
+			
 			AnimationHelper.drawCircle(circle, newX, newY, newZ, diameter, time * rotationSpeed + rotationOffset + initialRotation, facing, color);
 		}
 	}
