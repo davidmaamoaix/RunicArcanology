@@ -4,5 +4,7 @@ error.invalid_recipe.key=Invalid recipe.
 gui.arcane_workbench.key=Arcane Workbench
 
 tile.arcane_workbench.name=Arcane Workbench
+tile.rune_nature_gift.name=Nature's Gift
+tile.rune_arctic_wind.name=Arctic Wind
 
 item.runic_plate.name=Runic Plate

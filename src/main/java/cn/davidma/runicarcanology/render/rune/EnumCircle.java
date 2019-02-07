@@ -10,7 +10,8 @@ public enum EnumCircle {
 	RUNE_CIRCLE("rune_circle"),
 	SQUARE("square"),
 	TRIANGLE("triangle"),
-	NATURE_GIFT("nature_gift");
+	NATURE_GIFT("nature_gift"),
+	ARCTIC_WIND("arctic_wind");
 	
 	private ResourceLocation texture;
 	
