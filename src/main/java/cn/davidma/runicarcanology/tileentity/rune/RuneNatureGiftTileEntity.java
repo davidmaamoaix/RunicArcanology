@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 public class RuneNatureGiftTileEntity extends ActivatableRuneTileEntity {
 
 	private static final int COOLDOWN = 100;
-	private static final int CHANCE = 15;
+	private static final int CHANCE = 25;
 	
 	private int currCooldown = COOLDOWN;
 	
