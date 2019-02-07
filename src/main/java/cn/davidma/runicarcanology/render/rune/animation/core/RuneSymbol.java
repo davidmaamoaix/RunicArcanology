@@ -11,6 +11,7 @@ public abstract class RuneSymbol extends RuneAnimation {
 		super();
 		CircleStats glow = new CircleStats(this.getEnumCircle(), EnumFacing.UP, 0, 0.5);
 		glow.setRotationOffset(0);
+		glow.setyOffset(-0.5 + 0.0625 + AnimationHelper.DISTINCTION_OFFSET);
 		glow.setColor(this.getColor());
 		this.circles.add(glow);
 	}
@@ -18,7 +19,7 @@ public abstract class RuneSymbol extends RuneAnimation {
 	@Override
 	public void draw(double x, double y, double z, double time) {
 		float[] color = this.getColor();
-		double alpha = MathHelper.oscillate(time, 0.35, 1);
+		double alpha = MathHelper.oscillate(time * 4, 0.35, 1);
 		this.circles.get(0).setColor(new float[] {color[0], color[1], color[2], (float) alpha});
 		super.draw(x, y, z, time);
 	}

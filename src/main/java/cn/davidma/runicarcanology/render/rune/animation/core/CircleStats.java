@@ -19,7 +19,7 @@ public class CircleStats {
 		
 		// Center of block (default).
 		this.xOffset = 0;
-		this.yOffset = 0;
+		this.yOffset = -0.5 + AnimationHelper.DISTINCTION_OFFSET;
 		this.zOffset = 0;
 		
 		this.color = new float[] {1, 1, 1};

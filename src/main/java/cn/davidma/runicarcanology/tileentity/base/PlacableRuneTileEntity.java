@@ -35,6 +35,11 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 	
 	public void setRuneFacing(EnumFacing facing) {
 		this.runeFacing = facing;
+		double initialRotation = 0;
+		switch(this.runeFacing) {
+			case UP: initialRotation = -45;
+			default: break;
+		}
 		for (RuneAnimation i: this.animations) {
 			for (CircleStats circle: i.circles) {
 				circle.setFacing(this.runeFacing);

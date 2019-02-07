@@ -6,7 +6,6 @@ import cn.davidma.runicarcanology.reference.Info;
 import cn.davidma.runicarcanology.registry.RAItems;
 import cn.davidma.runicarcanology.render.particle.TextureStitcher;
 import cn.davidma.runicarcanology.render.tesr.ArcaneWorkbenchTESR;
-import cn.davidma.runicarcanology.render.tesr.PlacableRuneTESR;
 import cn.davidma.runicarcanology.render.tesr.base.RuneHandlingTESR;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
 import cn.davidma.runicarcanology.tileentity.base.PlacableRuneTileEntity;
@@ -35,7 +34,6 @@ public class ClientProxy implements IProxy {
 	public void registerTileEntitySpecialRenderer() {
 		ClientRegistry.bindTileEntitySpecialRenderer(RuneHandlingTileEntity.class, new RuneHandlingTESR());
 		ClientRegistry.bindTileEntitySpecialRenderer(ArcaneWorkbenchTileEntity.class, new ArcaneWorkbenchTESR());
-		ClientRegistry.bindTileEntitySpecialRenderer(PlacableRuneTileEntity.class, new PlacableRuneTESR());
 	}
 
 	@Override
