@@ -50,6 +50,7 @@ public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEnt
 		super(name, Material.IRON);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
 		this.lightValue = 5;
+		this.setHardness(5);
 	}
 	
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {

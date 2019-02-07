@@ -17,6 +17,7 @@ public class CraftingHelper {
 		workbenchRecipes = new ArrayList<WorkbenchRecipe>();
 		addRecipe(new ItemStack(RAItems.getItem("runic_plate"), 2), new ItemStack(Items.DIAMOND), new ItemStack(Items.QUARTZ, 4));
 		addRecipe(new ItemStack(RAItems.getItem("rune_nature_gift")), new ItemStack(Blocks.BONE_BLOCK), new ItemStack(Blocks.SEA_LANTERN, 2), new ItemStack(Blocks.GLASS, 2), new ItemStack(RAItems.getItem("runic_plate")), new ItemStack(Items.WHEAT_SEEDS), new ItemStack(Items.POTATO), new ItemStack(Items.CARROT), new ItemStack(Items.SUGAR));
+		addRecipe(new ItemStack(RAItems.getItem("rune_arctic_wind")), new ItemStack(RAItems.getItem("runic_plate")), new ItemStack(Blocks.ICE, 2), new ItemStack(Blocks.SNOW), new ItemStack(Items.CLOCK), new ItemStack(Items.DRAGON_BREATH));
 	}
 	
 	public static ItemStack getCraftingResult(List<ItemStack> ingredients) {
