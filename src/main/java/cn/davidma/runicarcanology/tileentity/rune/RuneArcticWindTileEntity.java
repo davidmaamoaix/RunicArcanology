@@ -38,7 +38,6 @@ public class RuneArcticWindTileEntity extends ActivatableRuneTileEntity {
 		
 		//if (this.world.isRemote) return;
 		if (!this.isActive()) {
-			
 			for (Entity i: prevProjectiles) {
 				if (!i.isDead) {
 					double[] originSpeed = this.slowedProjectiles.get(i);
