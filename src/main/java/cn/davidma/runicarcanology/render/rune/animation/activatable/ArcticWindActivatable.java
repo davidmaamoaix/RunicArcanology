@@ -12,13 +12,13 @@ public class ArcticWindActivatable extends ActivatableRuneAnimation {
 		
 		float[] color = new float[] {86 / 255.0F, 158 / 255.0F, 214 / 255.0F};
 		
-		CircleStats base = new CircleStats(EnumCircle.DASH_CIRCLE, EnumFacing.UP, 2, 0.1);
+		CircleStats base = new CircleStats(EnumCircle.DASH_CIRCLE, EnumFacing.UP, 2, 1);
 		this.circles.add(base);
 		
-		CircleStats square_inner = new CircleStats(EnumCircle.SQUARE, EnumFacing.UP, -2, 0.6);
+		CircleStats square_inner = new CircleStats(EnumCircle.SQUARE, EnumFacing.UP, -2, 0.55);
 		this.circles.add(square_inner);
 		
-		CircleStats square_outer = new CircleStats(EnumCircle.SQUARE, EnumFacing.UP, -2, 0.65);
+		CircleStats square_outer = new CircleStats(EnumCircle.SQUARE, EnumFacing.UP, -2, 0.6);
 		this.circles.add(square_outer);
 		
 		for (CircleStats i: this.circles) {

@@ -34,9 +34,9 @@ public class RuneNatureGiftTileEntity extends ActivatableRuneTileEntity {
 		if (this.currCooldown-- > 0) return;
 		this.currCooldown = COOLDOWN;
 		
-		for (int i = -3; i < 4; i++) {
-			for (int j = -3; j < 4; j++) {
-				for (int k = -2; k < 3; k++) {
+		for (int i = -3; i < 5; i++) {
+			for (int j = -3; j < 5; j++) {
+				for (int k = -2; k < 4; k++) {
 					BlockPos cropPos = this.pos.add(new BlockPos(i, k, j));
 					IBlockState state = this.world.getBlockState(cropPos);
 					if (state.getBlock() instanceof IGrowable) {

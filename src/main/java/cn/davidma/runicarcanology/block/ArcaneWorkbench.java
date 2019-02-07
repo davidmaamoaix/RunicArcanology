@@ -51,7 +51,7 @@ public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchT
 		
 		// Get all colliding entities.
 		AxisAlignedBB detectBox = new AxisAlignedBB(-0.5, 0, -0.5, 1.5, 1, 1.5).offset(pos);
-		List <? extends Entity > collidingEntities;
+		List<? extends Entity > collidingEntities;
 		collidingEntities = world.getEntitiesWithinAABBExcludingEntity((Entity) null, detectBox);
 		workbenchTileEntity.playerClick(player, collidingEntities);
 		return true;
