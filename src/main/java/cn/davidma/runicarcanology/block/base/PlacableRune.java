@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 
 import cn.davidma.runicarcanology.registry.CustomStateMapper;
 import cn.davidma.runicarcanology.tileentity.EnumRuneTileEntity;
+import cn.davidma.runicarcanology.tileentity.base.ActivatableRuneTileEntity;
 import cn.davidma.runicarcanology.tileentity.base.PlacableRuneTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockButton;
@@ -53,8 +54,8 @@ public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEnt
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (world.isRemote) return true;
 		TileEntity tileEntity = this.getTileEntity(world, pos);
-		if (tileEntity == null || !(tileEntity instanceof PlacableRuneTileEntity)) return true;
-		((PlacableRuneTileEntity) tileEntity).playerClick();
+		if (tileEntity == null || !(tileEntity instanceof ActivatableRuneTileEntity)) return true;
+		((ActivatableRuneTileEntity) tileEntity).playerClick();
 		
 		return true;
 	}

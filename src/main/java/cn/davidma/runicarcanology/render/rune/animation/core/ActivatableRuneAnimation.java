@@ -2,26 +2,27 @@ package cn.davidma.runicarcanology.render.rune.animation.core;
 
 public class ActivatableRuneAnimation extends RuneAnimation {
 
-	protected int runeState; // 0: Start; 1: Normal; 2: Stop
-	protected int timer;
+	private static final float ANIMATION_DURATION = 20.0F;
+	
+	private boolean active;
 	
 	public ActivatableRuneAnimation() {
 		super();
-		this.runeState = 0;
-		this.timer = 0;
 	}
 	
 	@Override
 	public void draw(double x, double y, double z, double time) {
 		super.draw(x, y, z, time);
-		if (this.runeState == 1) {
-			this.timer = 0;
-		} else {
-			this.timer++;
+		for (CircleStats i: this.circles) {
+			if (this.active) {
+				i.setAlpha(Math.min(i.getAlpha() + 1.0F / ANIMATION_DURATION, 1));
+			} else {
+				i.setAlpha(Math.max(i.getAlpha() - 1.0F / ANIMATION_DURATION, 0));
+			}
 		}
 	}
 	
-	public void setRuneState(int runeState) {
-		this.runeState = runeState;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 }

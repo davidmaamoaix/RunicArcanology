@@ -3,6 +3,7 @@ package cn.davidma.runicarcanology.render.tesr.base;
 import cn.davidma.runicarcanology.render.rune.AnimationHelper;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import cn.davidma.runicarcanology.tileentity.ArcaneWorkbenchTileEntity;
+import cn.davidma.runicarcanology.tileentity.base.ActivatableRuneTileEntity;
 import cn.davidma.runicarcanology.tileentity.base.RuneHandlingTileEntity;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 

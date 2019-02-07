@@ -13,21 +13,6 @@ import net.minecraft.util.EnumFacing;
 public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 	
 	private EnumFacing runeFacing;
-	private boolean isActive;
-	
-	public void playerClick() {
-		/*for (RuneAnimation animation: this.animations) {
-			if (animation instanceof ActivatableRuneAnimation) {
-				ActivatableRuneAnimation activatable = (ActivatableRuneAnimation) animation;
-				if (this.isActive) {
-					activatable.setRuneState(2);
-				} else {
-					activatable.setRuneState(0);
-				}
-			}
-		}
-		this.isActive = !this.isActive;*/
-	}
 	
 	public EnumFacing getRuneFacing() {
 		return this.runeFacing;
@@ -52,14 +37,9 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 		}
 	} 
 	
-	public boolean isActive() {
-		return this.isActive;
-	}
-	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		this.runeFacing = EnumFacing.values()[nbt.getInteger(NBTHelper.RUNE_FACING)];
-		this.isActive = nbt.getBoolean(NBTHelper.IS_ACTIVE);
 		this.setRuneFacing(this.runeFacing); // To update all the runes.
 		super.readFromNBT(nbt);
 	}
@@ -67,7 +47,6 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		nbt.setInteger(NBTHelper.RUNE_FACING, this.runeFacing.ordinal());
-		nbt.setBoolean(NBTHelper.IS_ACTIVE, this.isActive);
 		return super.writeToNBT(nbt);
 	}
 }
