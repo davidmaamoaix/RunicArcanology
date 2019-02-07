@@ -35,14 +35,19 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 	
 	public void setRuneFacing(EnumFacing facing) {
 		this.runeFacing = facing;
+		
 		double initialRotation = 0;
 		switch(this.runeFacing) {
-			case UP: initialRotation = -45;
-			default: break;
+			case UP: initialRotation = -135;break;
+			case NORTH: initialRotation = 45;break;
+			case EAST: initialRotation = 45; break;
+			default: initialRotation = 135; break;
 		}
+		
 		for (RuneAnimation i: this.animations) {
 			for (CircleStats circle: i.circles) {
 				circle.setFacing(this.runeFacing);
+				circle.setRotationOffset(initialRotation);
 			}
 		}
 	} 
@@ -55,6 +60,7 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 	public void readFromNBT(NBTTagCompound nbt) {
 		this.runeFacing = EnumFacing.values()[nbt.getInteger(NBTHelper.RUNE_FACING)];
 		this.isActive = nbt.getBoolean(NBTHelper.IS_ACTIVE);
+		this.setRuneFacing(this.runeFacing); // To update all the runes.
 		super.readFromNBT(nbt);
 	}
 	
