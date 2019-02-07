@@ -22,7 +22,7 @@ public class CircleStats {
 		this.yOffset = -0.5 + AnimationHelper.DISTINCTION_OFFSET;
 		this.zOffset = 0;
 		
-		this.color = new float[] {1, 1, 1};
+		this.color = new float[] {1, 1, 1, 1};
 		this.circle = circle;
 		this.facing = facing;
 		this.rotationSpeed = rotationSpeed;
@@ -97,6 +97,15 @@ public class CircleStats {
 	
 	public void setColor(float[] color) {
 		this.color = color;
+	}
+	
+	public float getAlpha() {
+		if (this.color.length == 4) return this.color[3];
+		return 1;
+	}
+	
+	public void setAlpha(float alpha) {
+		this.color = new float[] {this.color[0], this.color[1], this.color[2], alpha};
 	}
 
 	public double getInitialRotation() {
