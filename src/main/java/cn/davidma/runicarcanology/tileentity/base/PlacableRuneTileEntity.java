@@ -49,4 +49,8 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 		nbt.setInteger(NBTHelper.RUNE_FACING, this.runeFacing.ordinal());
 		return super.writeToNBT(nbt);
 	}
+
+	public void onRuneDestroy() {
+		
+	}
 }

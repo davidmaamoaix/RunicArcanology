@@ -36,18 +36,8 @@ public class RuneArcticWindTileEntity extends ActivatableRuneTileEntity {
 		
 		List<Entity> prevProjectiles = new ArrayList<Entity>(this.slowedProjectiles.keySet());
 		
-		//if (this.world.isRemote) return;
 		if (!this.isActive()) {
-			for (Entity i: prevProjectiles) {
-				if (!i.isDead) {
-					double[] originSpeed = this.slowedProjectiles.get(i);
-					i.motionX = originSpeed[0];
-					i.motionY = originSpeed[1];
-					i.motionZ = originSpeed[2];
-					i.velocityChanged = true;
-				}
-				this.slowedProjectiles.remove(i);
-			}
+			this.restoreSpeed(prevProjectiles);
 			return;
 		}
 		
@@ -79,6 +69,16 @@ public class RuneArcticWindTileEntity extends ActivatableRuneTileEntity {
 			}
 		}
 		
+		this.restoreSpeed(prevProjectiles);
+	}
+	
+	@Override
+	public void onRuneDestroy() {
+		List<Entity> prevProjectiles = new ArrayList<Entity>(this.slowedProjectiles.keySet());
+		this.restoreSpeed(prevProjectiles);
+	}
+	
+	private void restoreSpeed(List<Entity> prevProjectiles) {
 		for (Entity i: prevProjectiles) {
 			if (!i.isDead) {
 				double[] originSpeed = this.slowedProjectiles.get(i);

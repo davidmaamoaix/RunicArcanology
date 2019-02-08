@@ -69,7 +69,7 @@ public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchT
 	
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
-		TileEntity tileEntity = world.getTileEntity(pos);
+		TileEntity tileEntity = this.getTileEntity(world, pos);
 		if (tileEntity != null) {
 			IItemHandler itemHandler = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 			for (int i = 0; i < itemHandler.getSlots(); i++) {

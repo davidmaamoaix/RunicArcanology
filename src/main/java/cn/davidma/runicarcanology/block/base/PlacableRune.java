@@ -16,7 +16,9 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -28,6 +30,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEntity> {
 
@@ -141,12 +145,13 @@ public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEnt
 		BlockPos blockPos = pos.offset(facing.getOpposite());
 		IBlockState state = world.getBlockState(blockPos);
 		boolean flag = state.getBlockFaceShape(world, blockPos, facing) == BlockFaceShape.SOLID;
+		boolean isInventory = world.getTileEntity(blockPos) instanceof IInventory;
 		Block block = state.getBlock();
 		
 		if (facing == EnumFacing.UP) {
-			return state.isTopSolid() || !isExceptionBlockForAttaching(block) && flag;
+			return state.isTopSolid() || (!isExceptionBlockForAttaching(block) && flag) || isInventory;
 		} else {
-			return !isExceptBlockForAttachWithPiston(block) && flag;
+			return (!isExceptBlockForAttachWithPiston(block) && flag) || isInventory;
 		}
 	}
 	
@@ -180,6 +185,16 @@ public class PlacableRune extends TransparentTileEntityBlock<PlacableRuneTileEnt
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	@Override
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+		TileEntity tileEntity = this.getTileEntity(world, pos);
+		if (tileEntity != null && tileEntity instanceof PlacableRuneTileEntity) {
+			PlacableRuneTileEntity placableRune = (PlacableRuneTileEntity) tileEntity;
+			placableRune.onRuneDestroy();
+		}
+		super.breakBlock(world, pos, state);
 	}
 	
 	@Override
