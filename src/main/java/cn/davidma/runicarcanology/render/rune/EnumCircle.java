@@ -11,7 +11,8 @@ public enum EnumCircle {
 	SQUARE("square"),
 	TRIANGLE("triangle"),
 	NATURE_GIFT("nature_gift"),
-	ARCTIC_WIND("arctic_wind");
+	ARCTIC_WIND("arctic_wind"),
+	ENDER_HOPPER("ender_hopper");
 	
 	private ResourceLocation texture;
 	

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.davidma.runicarcanology.item.ItemFilter;
 import cn.davidma.runicarcanology.item.base.StandardItemBase;
 import net.minecraft.item.Item;
 
@@ -14,6 +15,7 @@ public class RAItems {
 	
 	public static void instantiateAllItems() {
 		new StandardItemBase("runic_plate");
+		new ItemFilter("item_filter");
 	}
 	
 	public static void addItem(String name, Item item) {
