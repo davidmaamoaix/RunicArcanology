@@ -3,7 +3,11 @@ package cn.davidma.runicarcanology.util.inventory;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.davidma.runicarcanology.util.NBTHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
 public class ItemFilterHelper {
 	
@@ -11,10 +15,10 @@ public class ItemFilterHelper {
 	private boolean whitelist;
 	private boolean ignoreMeta;
 	
-	public ItemFilterHelper(boolean whitelist, boolean ignoreMeta) {
+	public ItemFilterHelper() {
 		this.contents = new ArrayList<ItemStack>();
-		this.whitelist = whitelist;
-		this.ignoreMeta = ignoreMeta;
+		this.whitelist = false;
+		this.ignoreMeta = false;
 	}
 	
 	public boolean hasStack(ItemStack stack) {
@@ -52,5 +56,44 @@ public class ItemFilterHelper {
 		
 		// No metadata nonsense for now.
 		return a.getItem().equals(b.getItem()) && (this.ignoreMeta || a.getMetadata() == b.getMetadata());
+	}
+	
+	public NBTTagCompound serializeNBT() {
+		NBTTagCompound nbt = new NBTTagCompound();
+		nbt.setBoolean(NBTHelper.WHITELIST, this.whitelist);
+		nbt.setBoolean(NBTHelper.IGNORE_META, this.ignoreMeta);
+		
+		NBTTagList stacks = new NBTTagList();
+		for (ItemStack i: this.contents) {
+			stacks.appendTag(i.serializeNBT());
+		}
+		nbt.setTag(NBTHelper.STACK_LIST, stacks);
+		
+		return nbt;
+	}
+	
+	public static ItemFilterHelper filterFromNBT(NBTTagCompound nbt) {
+		ItemFilterHelper filter = new ItemFilterHelper();
+		
+		filter.whitelist = nbt.getBoolean(NBTHelper.WHITELIST);
+		filter.ignoreMeta = nbt.getBoolean(NBTHelper.IGNORE_META);
+		
+		NBTBase base = nbt.getTag(NBTHelper.STACK_LIST);
+		if (base == null || base.hasNoTags() || !(base instanceof NBTTagList)) return filter;
+		NBTTagList list = (NBTTagList) base;
+		for (NBTBase i: list) {
+			if (!(i instanceof NBTTagCompound)) continue;
+			ItemStack stack = ItemStack.EMPTY;
+			stack.deserializeNBT((NBTTagCompound) i);
+			filter.contents.add(stack);
+		}
+		
+		return filter;
+	}
+	
+	public static ItemFilterHelper filterFromStack(ItemStack stack) {
+		NBTTagCompound nbt = NBTHelper.getEssentialNBT(stack).getCompoundTag(NBTHelper.FILTER);
+		if (nbt == null) return new ItemFilterHelper();
+		return filterFromNBT(nbt);
 	}
 }

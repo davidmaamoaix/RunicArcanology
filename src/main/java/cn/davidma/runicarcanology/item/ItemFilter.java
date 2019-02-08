@@ -15,17 +15,9 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
 public class ItemFilter extends StandardItemBase {
-
-	private ItemFilterHelper itemFilter;
-	private boolean whitelist;
-	private boolean ignoreMeta;
 	
 	public ItemFilter(String name) {
 		super(name);
-		this.whitelist = false;
-		this.ignoreMeta = false;
-		this.itemFilter = new ItemFilterHelper(this.whitelist, this.ignoreMeta);
-		
 		this.setMaxStackSize(1);
 	}
 	
@@ -42,7 +34,7 @@ public class ItemFilter extends StandardItemBase {
 		if (tileEntity == null) return EnumActionResult.FAIL;
 		
 		if (tileEntity instanceof IItemFilter) {
-			((IItemFilter) tileEntity).setFilter(this.itemFilter);
+			//((IItemFilter) tileEntity).setFilter(ItemFilterHelper.filterFromNBT());
 			return EnumActionResult.SUCCESS;
 		}
 		
