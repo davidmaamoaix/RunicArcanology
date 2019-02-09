@@ -72,11 +72,13 @@ public class ArcaneWorkbench extends TransparentTileEntityBlock<ArcaneWorkbenchT
 		TileEntity tileEntity = this.getTileEntity(world, pos);
 		if (tileEntity != null) {
 			IItemHandler itemHandler = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-			for (int i = 0; i < itemHandler.getSlots(); i++) {
-				ItemStack stack = itemHandler.getStackInSlot(i);
-				if (!stack.isEmpty()) {
-					EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, stack);
-					world.spawnEntity(item);
+			if (itemHandler != null) {
+				for (int i = 0; i < itemHandler.getSlots(); i++) {
+					ItemStack stack = itemHandler.getStackInSlot(i);
+					if (!stack.isEmpty()) {
+						EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, stack);
+						world.spawnEntity(item);
+					}
 				}
 			}
 		}

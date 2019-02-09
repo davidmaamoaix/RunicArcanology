@@ -71,7 +71,7 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 	public void playerClick(EntityPlayer player, List<? extends Entity> collidingEntity) {
 		if (this.isCrafting) return;
 		if (!this.enoughSpace()) {
-			Msg.tellPlayer(player, I18n.format("error.workbench_space.key"));
+			Msg.tellPlayer(player, "error.workbench_space.key");
 		} else {
 			this.clearInventory();
 			IItemHandler itemHandler = this.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
@@ -95,7 +95,7 @@ public class ArcaneWorkbenchTileEntity extends RuneHandlingTileEntity {
 			// Throw items back if invalid recipe.
 			ItemStack output = CraftingHelper.getCraftingResult(ingredients);
 			if (output.isEmpty()) {
-				Msg.tellPlayer(player, I18n.format("error.invalid_recipe.key"));
+				Msg.tellPlayer(player, "error.invalid_recipe.key");
 				
 				// Biu biu biu!
 				for (ItemStack i: ingredients) {

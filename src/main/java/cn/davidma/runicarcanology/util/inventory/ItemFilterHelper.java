@@ -48,8 +48,16 @@ public class ItemFilterHelper {
 		return this.whitelist;
 	}
 	
+	public boolean ignoreMeta() {
+		return this.ignoreMeta;
+	}
+	
 	public boolean isEmpty() {
-		return this.contents.size() == 0;
+		return this.size() == 0;
+	}
+	
+	public int size() {
+		return this.contents.size();
 	}
 	
 	private boolean match(ItemStack a, ItemStack b) {
@@ -72,6 +80,10 @@ public class ItemFilterHelper {
 		return nbt;
 	}
 	
+	public void clearFilter() {
+		this.contents = new ArrayList<ItemStack>();
+	}
+	
 	public static ItemFilterHelper filterFromNBT(NBTTagCompound nbt) {
 		ItemFilterHelper filter = new ItemFilterHelper();
 		
@@ -89,6 +101,12 @@ public class ItemFilterHelper {
 		}
 		
 		return filter;
+	}
+	
+	public static void setFilter(ItemStack stack, ItemFilterHelper itemFilter) {
+		NBTTagCompound nbt = NBTHelper.getEssentialNBT(stack);
+		nbt.setTag(NBTHelper.FILTER, itemFilter.serializeNBT());
+		NBTHelper.setEssentialNBT(stack, nbt);
 	}
 	
 	public static ItemFilterHelper filterFromStack(ItemStack stack) {

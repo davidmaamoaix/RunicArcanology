@@ -1,5 +1,9 @@
 error.workbench_space.key=The workbench needs more empty space around it (5x5x2).
 error.invalid_recipe.key=Invalid recipe.
+error.empty_inventory.key=This inventory is empty.
+
+alert.content_saved.key=Content saved.
+alert.content_cleared.key=Content cleared.
 
 gui.arcane_workbench.key=Arcane Workbench
 
