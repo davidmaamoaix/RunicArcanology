@@ -2,10 +2,17 @@ package cn.davidma.runicarcanology.tileentity.base;
 
 import com.google.common.base.Predicate;
 
+import cn.davidma.runicarcanology.item.ItemFilter;
+import cn.davidma.runicarcanology.item.base.IRuneTool;
 import cn.davidma.runicarcanology.render.rune.animation.core.ActivatableRuneAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.CircleStats;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
+import cn.davidma.runicarcanology.util.Msg;
 import cn.davidma.runicarcanology.util.NBTHelper;
+import cn.davidma.runicarcanology.util.inventory.ItemFilterHelper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -13,6 +20,7 @@ import net.minecraft.util.EnumFacing;
 public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 	
 	private EnumFacing runeFacing;
+	private ItemFilterHelper itemFilter = new ItemFilterHelper();
 	
 	public EnumFacing getRuneFacing() {
 		return this.runeFacing;
@@ -35,7 +43,20 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 				circle.setRotationOffset(initialRotation);
 			}
 		}
-	} 
+	}
+	
+	public void playerClick(EntityPlayer player) {
+		ItemStack stack = player.inventory.getCurrentItem();
+		Item currItem = stack.getItem();
+		if (currItem instanceof ItemFilter) {
+			ItemFilter itemFilter = (ItemFilter) currItem;
+			if (this.canSetItemFilter()) {
+				this.setItemFilter(ItemFilterHelper.filterFromStack(stack));
+			} else {
+				Msg.tellPlayer(player, "error.cannot_apply_filterm.key");
+			}
+		}
+	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
@@ -48,6 +69,14 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		nbt.setInteger(NBTHelper.RUNE_FACING, this.runeFacing.ordinal());
 		return super.writeToNBT(nbt);
+	}
+	
+	public boolean canSetItemFilter() {
+		return false;
+	}
+	
+	public void setItemFilter(ItemFilterHelper itemFlter) {
+		if (this.canSetItemFilter()) this.itemFilter = itemFilter.copy();
 	}
 
 	public void onRuneDestroy() {

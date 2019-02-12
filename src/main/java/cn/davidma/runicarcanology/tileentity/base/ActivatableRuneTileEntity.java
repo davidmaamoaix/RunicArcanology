@@ -1,8 +1,10 @@
 package cn.davidma.runicarcanology.tileentity.base;
 
+import cn.davidma.runicarcanology.item.base.IRuneTool;
 import cn.davidma.runicarcanology.render.rune.animation.core.ActivatableRuneAnimation;
 import cn.davidma.runicarcanology.render.rune.animation.core.RuneAnimation;
 import cn.davidma.runicarcanology.util.NBTHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
@@ -10,10 +12,13 @@ public abstract class ActivatableRuneTileEntity extends PlacableRuneTileEntity {
 
 	private boolean isActive;
 	
-	public void playerClick() {
-		this.isActive = !this.isActive;
-		this.updateActivatableAnimation();
-		this.save();
+	public void playerClick(EntityPlayer player) {
+		super.playerClick(player);
+		if (!(player.inventory.getCurrentItem().getItem() instanceof IRuneTool)) {
+			this.isActive = !this.isActive;
+			this.updateActivatableAnimation();
+			this.save();
+		}
 	}
 	
 	public boolean isActive() {

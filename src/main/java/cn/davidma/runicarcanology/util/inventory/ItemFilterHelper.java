@@ -80,6 +80,16 @@ public class ItemFilterHelper {
 		return nbt;
 	}
 	
+	public ItemFilterHelper copy() {
+		ItemFilterHelper itemFilter = new ItemFilterHelper();
+		itemFilter.whitelist = this.whitelist;
+		itemFilter.ignoreMeta = this.ignoreMeta;
+		for (ItemStack i: this.contents) {
+			itemFilter.contents.add(i.copy());
+		}
+		return itemFilter;
+	}
+	
 	public void clearFilter() {
 		this.contents = new ArrayList<ItemStack>();
 	}
@@ -103,15 +113,15 @@ public class ItemFilterHelper {
 		return filter;
 	}
 	
-	public static void setFilter(ItemStack stack, ItemFilterHelper itemFilter) {
-		NBTTagCompound nbt = NBTHelper.getEssentialNBT(stack);
-		nbt.setTag(NBTHelper.FILTER, itemFilter.serializeNBT());
-		NBTHelper.setEssentialNBT(stack, nbt);
-	}
-	
 	public static ItemFilterHelper filterFromStack(ItemStack stack) {
 		NBTTagCompound nbt = NBTHelper.getEssentialNBT(stack).getCompoundTag(NBTHelper.FILTER);
 		if (nbt == null) return new ItemFilterHelper();
 		return filterFromNBT(nbt);
+	}
+	
+	public static void setFilter(ItemStack stack, ItemFilterHelper itemFilter) {
+		NBTTagCompound nbt = NBTHelper.getEssentialNBT(stack);
+		nbt.setTag(NBTHelper.FILTER, itemFilter.serializeNBT());
+		NBTHelper.setEssentialNBT(stack, nbt);
 	}
 }
