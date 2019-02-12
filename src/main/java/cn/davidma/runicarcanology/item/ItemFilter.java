@@ -33,23 +33,24 @@ public class ItemFilter extends StandardItemBase implements IRuneTool {
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float x, float y, float z) {
 		ItemStack stack = player.inventory.getCurrentItem();
 		ItemFilterHelper itemFilter = ItemFilterHelper.filterFromStack(stack);
+		TileEntity tileEntity = world.getTileEntity(pos);
 		if (!player.isSneaking()) return EnumActionResult.FAIL;
+		
+		// Client is for animation.
 		if (world.isRemote) {
-			ItemFilterHelper itemFilter = ItemFilterHelper.filterFromStack(stack);
-			if (!player.isSneaking()) return EnumActionResult.FAIL;
-			TileEntity tileEntity = world.getTileEntity(pos);
-			if (tileEntity == null) {
-				if (itemFilter.isEmpty()) {
-					return EnumActionResult.FAIL;
-				} else {
-					clearFilter(stack);
-					Msg.tellPlayer(player, "alert.content_cleared.key");
-					return EnumActionResult.SUCCESS;
-				}
+			if (tileEntity == null) return itemFilter.isEmpty() ? EnumActionResult.FAIL : EnumActionResult.SUCCESS;
+			
+			if (tileEntity instanceof PlacableRuneTileEntity) {
+				return EnumActionResult.SUCCESS;
 			}
+			
+			IItemHandler inv = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
+			if (inv == null) return itemFilter.isEmpty() ? EnumActionResult.FAIL : EnumActionResult.SUCCESS;
+			
 			return EnumActionResult.SUCCESS;
+			
 		} else {
-			TileEntity tileEntity = world.getTileEntity(pos);
+			
 			if (tileEntity == null) {
 				if (itemFilter.isEmpty()) {
 					return EnumActionResult.FAIL;
@@ -75,7 +76,6 @@ public class ItemFilter extends StandardItemBase implements IRuneTool {
 				}
 			}
 			
-			if (!itemFilter.isEmpty()) return EnumActionResult.FAIL;
 			itemFilter.clearFilter();
 			
 			for (int i = 0; i < inv.getSlots(); i++) {
