@@ -10,6 +10,7 @@ import cn.davidma.runicarcanology.util.Msg;
 import cn.davidma.runicarcanology.util.inventory.ItemFilterHelper;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;

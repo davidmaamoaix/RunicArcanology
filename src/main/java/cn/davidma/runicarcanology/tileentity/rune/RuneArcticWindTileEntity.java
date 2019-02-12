@@ -41,7 +41,7 @@ public class RuneArcticWindTileEntity extends ActivatableRuneTileEntity {
 			return;
 		}
 		
-		AxisAlignedBB detectBox = new AxisAlignedBB(-3, -2, -3, 4, 3, 4).offset(this.pos);
+		AxisAlignedBB detectBox = new AxisAlignedBB(-5, -2, -5, 6, 3, 6).offset(this.pos);
 		List<Entity> collidingEntities = world.getEntitiesWithinAABBExcludingEntity((Entity) null, detectBox);
 		
 		
@@ -56,15 +56,12 @@ public class RuneArcticWindTileEntity extends ActivatableRuneTileEntity {
 				
 				double[] originSpeed = this.slowedProjectiles.get(i);
 				
-				i.motionX = originSpeed[0] * SLOW_AMOUNT;
-				i.motionY = originSpeed[1] * SLOW_AMOUNT;
-				i.motionZ = originSpeed[2] * SLOW_AMOUNT;
+				i.setVelocity(originSpeed[0] * SLOW_AMOUNT, originSpeed[1] * SLOW_AMOUNT, originSpeed[2] * SLOW_AMOUNT);
 				i.velocityChanged = true;
 				
 			} else {
-				i.motionX *= SLOW_AMOUNT;
-				i.motionY *= SLOW_AMOUNT;
-				i.motionZ *= SLOW_AMOUNT;
+				i.setInWeb();
+				i.setVelocity(0, -0.01, 0);
 				i.velocityChanged = true;
 			}
 		}

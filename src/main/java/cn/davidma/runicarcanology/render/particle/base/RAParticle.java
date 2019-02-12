@@ -3,7 +3,10 @@ package cn.davidma.runicarcanology.render.particle.base;
 import cn.davidma.runicarcanology.render.particle.TextureStitcher;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
 public abstract class RAParticle extends Particle {
@@ -34,6 +37,11 @@ public abstract class RAParticle extends Particle {
 	@Override
 	public int getFXLayer() {
 		return 1;
+	}
+	
+	@Override
+	public void renderParticle(BufferBuilder buffer, Entity entity, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
+		super.renderParticle(buffer, entity, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
 	
 	protected abstract TextureAtlasSprite getTexture();
