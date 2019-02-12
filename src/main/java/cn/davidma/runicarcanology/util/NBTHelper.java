@@ -9,6 +9,9 @@ public class NBTHelper {
 
 	public static String BASE = Info.MOD_ID;
 	
+	// Property.
+	public static String RUNE_FILTER = "runeFilter";
+	
 	// Activatable Rune.
 	public static String IS_ACTIVE = "isActive";
 	public static String RUNE_FACING = "runeFacing";

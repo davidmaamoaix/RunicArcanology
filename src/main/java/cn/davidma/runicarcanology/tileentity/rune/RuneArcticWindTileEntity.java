@@ -15,6 +15,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 
 public class RuneArcticWindTileEntity extends ActivatableRuneTileEntity {
 
+	private static AxisAlignedBB DETECT_BOX = new AxisAlignedBB(-5, -2, -5, 6, 3, 6);
 	private static final double SLOW_AMOUNT = 0.01;
 	
 	private Map<Entity, double[]> slowedProjectiles;
@@ -41,8 +42,7 @@ public class RuneArcticWindTileEntity extends ActivatableRuneTileEntity {
 			return;
 		}
 		
-		AxisAlignedBB detectBox = new AxisAlignedBB(-5, -2, -5, 6, 3, 6).offset(this.pos);
-		List<Entity> collidingEntities = world.getEntitiesWithinAABBExcludingEntity((Entity) null, detectBox);
+		List<Entity> collidingEntities = this.world.getEntitiesWithinAABBExcludingEntity(null, DETECT_BOX.offset(this.pos));
 		
 		
 		for (Entity i: collidingEntities) {

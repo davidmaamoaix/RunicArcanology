@@ -20,7 +20,8 @@ import net.minecraft.util.EnumFacing;
 public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 	
 	private EnumFacing runeFacing;
-	private ItemFilterHelper itemFilter = new ItemFilterHelper();
+	
+	protected ItemFilterHelper itemFilter = new ItemFilterHelper();
 	
 	public EnumFacing getRuneFacing() {
 		return this.runeFacing;
@@ -62,12 +63,14 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 	public void readFromNBT(NBTTagCompound nbt) {
 		this.runeFacing = EnumFacing.values()[nbt.getInteger(NBTHelper.RUNE_FACING)];
 		this.setRuneFacing(this.runeFacing); // To update all the runes.
+		this.setItemFilter(ItemFilterHelper.filterFromNBT(nbt.getCompoundTag(NBTHelper.RUNE_FILTER)));
 		super.readFromNBT(nbt);
 	}
 	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		nbt.setInteger(NBTHelper.RUNE_FACING, this.runeFacing.ordinal());
+		nbt.setTag(NBTHelper.RUNE_FILTER, this.itemFilter.serializeNBT());
 		return super.writeToNBT(nbt);
 	}
 	
@@ -76,7 +79,10 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 	}
 	
 	public void setItemFilter(ItemFilterHelper itemFlter) {
-		if (this.canSetItemFilter()) this.itemFilter = itemFilter.copy();
+		if (this.canSetItemFilter()) {
+			this.itemFilter = itemFilter.copy();
+			this.save();
+		}
 	}
 
 	public void onRuneDestroy() {

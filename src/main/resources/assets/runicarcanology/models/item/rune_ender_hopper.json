@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "runicarcanology:items/runic_plate",
+        "layer1": "runicarcanology:items/ender_hopper_item"
+    }
+}

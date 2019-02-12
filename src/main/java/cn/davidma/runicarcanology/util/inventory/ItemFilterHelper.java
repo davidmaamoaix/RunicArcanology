@@ -21,6 +21,11 @@ public class ItemFilterHelper {
 		this.ignoreMeta = false;
 	}
 	
+	// Try think of a better name.
+	public boolean isStackValid(ItemStack stack) {
+		return hasStack(stack) ^ !(this.whitelist);
+	}
+	
 	public boolean hasStack(ItemStack stack) {
 		if (stack.isEmpty()) return false;
 		
@@ -61,8 +66,6 @@ public class ItemFilterHelper {
 	}
 	
 	private boolean match(ItemStack a, ItemStack b) {
-		
-		// No metadata nonsense for now.
 		return a.getItem().equals(b.getItem()) && (this.ignoreMeta || a.getMetadata() == b.getMetadata());
 	}
 	
