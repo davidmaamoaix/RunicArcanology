@@ -85,7 +85,7 @@ public class ItemFilter extends StandardItemBase implements IRuneTool {
 			if (itemFilter.isEmpty()) {
 				Msg.tellPlayer(player, "error.empty_inventory.key");
 			} else {
-				Msg.tellPlayer(player, "alert.content_saved.key");
+				Msg.tellPlayer(player, "alert.content_saved.key", itemFilter.size());
 			}
 			
 			ItemFilterHelper.setFilter(stack, itemFilter);

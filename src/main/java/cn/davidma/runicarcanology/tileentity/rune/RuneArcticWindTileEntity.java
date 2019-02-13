@@ -61,7 +61,9 @@ public class RuneArcticWindTileEntity extends ActivatableRuneTileEntity {
 				
 			} else {
 				i.setInWeb();
-				i.setVelocity(0, -0.01, 0);
+				i.motionX *= 0.01;
+				i.motionY *= 0.01;
+				i.motionZ *= 0.01;
 				i.velocityChanged = true;
 			}
 		}

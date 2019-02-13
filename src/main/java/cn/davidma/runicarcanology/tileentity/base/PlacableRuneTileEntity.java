@@ -52,7 +52,12 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 		if (currItem instanceof ItemFilter) {
 			ItemFilter itemFilter = (ItemFilter) currItem;
 			if (this.canSetItemFilter()) {
-				this.setItemFilter(ItemFilterHelper.filterFromStack(stack));
+				ItemFilterHelper itemFilterHelper = ItemFilterHelper.filterFromStack(stack);
+				this.setItemFilter(itemFilterHelper);
+				
+				String listType = itemFilterHelper.isWhitelist() ? "Whitelist" : "Blacklist";
+				int size = itemFilterHelper.size();
+				Msg.tellPlayer(player, "alert.apply_filter_success.key", listType, size);
 				this.save();
 			} else {
 				Msg.tellPlayer(player, "error.cannot_apply_filter.key");
