@@ -53,8 +53,9 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 			ItemFilter itemFilter = (ItemFilter) currItem;
 			if (this.canSetItemFilter()) {
 				this.setItemFilter(ItemFilterHelper.filterFromStack(stack));
+				this.save();
 			} else {
-				Msg.tellPlayer(player, "error.cannot_apply_filterm.key");
+				Msg.tellPlayer(player, "error.cannot_apply_filter.key");
 			}
 		}
 	}
@@ -63,7 +64,7 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 	public void readFromNBT(NBTTagCompound nbt) {
 		this.runeFacing = EnumFacing.values()[nbt.getInteger(NBTHelper.RUNE_FACING)];
 		this.setRuneFacing(this.runeFacing); // To update all the runes.
-		this.setItemFilter(ItemFilterHelper.filterFromNBT(nbt.getCompoundTag(NBTHelper.RUNE_FILTER)));
+		this.itemFilter = ItemFilterHelper.filterFromNBT(nbt.getCompoundTag(NBTHelper.RUNE_FILTER));
 		super.readFromNBT(nbt);
 	}
 	
@@ -78,10 +79,9 @@ public abstract class PlacableRuneTileEntity extends RuneHandlingTileEntity {
 		return false;
 	}
 	
-	public void setItemFilter(ItemFilterHelper itemFlter) {
+	public void setItemFilter(ItemFilterHelper itemFilter) {
 		if (this.canSetItemFilter()) {
 			this.itemFilter = itemFilter.copy();
-			this.save();
 		}
 	}
 

@@ -108,8 +108,7 @@ public class ItemFilterHelper {
 		NBTTagList list = (NBTTagList) base;
 		for (NBTBase i: list) {
 			if (!(i instanceof NBTTagCompound)) continue;
-			ItemStack stack = ItemStack.EMPTY;
-			stack.deserializeNBT((NBTTagCompound) i);
+			ItemStack stack = new ItemStack((NBTTagCompound) i);
 			filter.contents.add(stack);
 		}
 		

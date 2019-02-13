@@ -12,7 +12,7 @@ public class EnderHopperAmbient extends RuneSymbol {
 
 	@Override
 	public float[] getColor() {
-		return new float[] {100 / 255.0F, 100 / 255.0F, 100 / 255.0F};
+		return new float[] {131 / 255.0F, 76 / 255.0F, 158 / 255.0F};
 	}
 
 }
