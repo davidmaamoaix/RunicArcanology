@@ -29,7 +29,7 @@ public class LivingEntityActivityHandler {
 			event.setCanceled(true);
 			double speed = Math.min(player.fallDistance, 100);
 			if (speed >= 10) {
-				AxisAlignedBB box = player.getEntityBoundingBox().offset(player.motionX, player.motionY, player.motionZ).grow(2.5D);
+				AxisAlignedBB box = player.getEntityBoundingBox().offset(player.motionX, player.motionY, player.motionZ).grow(5);
 				List<Entity> entities = player.world.getEntitiesInAABBexcluding(player, box, Predicates.instanceOf(EntityLiving.class));
 				for (Entity i: entities) {
 					
@@ -39,7 +39,7 @@ public class LivingEntityActivityHandler {
 						((EntityLiving) i).attackEntityFrom(DamageSource.causePlayerDamage(player), (float) (speed / 20.0F));
 					}
 				}
-				player.world.createExplosion(player, player.posX, player.posY, player.posZ, (float) speed / 10, false);
+				player.world.createExplosion(player, player.posX, player.posY, player.posZ, (float) (speed / 17.5F), false);
 			}
 		}
 	}
