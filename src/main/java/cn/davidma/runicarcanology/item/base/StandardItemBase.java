@@ -12,8 +12,8 @@ public class StandardItemBase extends Item implements Registrable {
 	public StandardItemBase(String name) {
 		super();
 		this.name = name;
-		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
+		this.setUnlocalizedName(this.getRegistryName().toString());
 		RAItems.addItem(name, this);
 	}
 

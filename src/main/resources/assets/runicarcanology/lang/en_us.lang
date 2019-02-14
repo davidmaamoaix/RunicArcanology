@@ -12,6 +12,8 @@ gui.arcane_workbench.key=Arcane Workbench
 tile.arcane_workbench.name=Arcane Workbench
 tile.rune_nature_gift.name=Nature's Gift
 tile.rune_arctic_wind.name=Arctic Wind
+tile.rune_ender_hopper.name=Ender Hopper
 
+item.storm_bringer.name=Storm Bringer
 item.runic_plate.name=Runic Plate
 item.item_filter.name=Item Filter

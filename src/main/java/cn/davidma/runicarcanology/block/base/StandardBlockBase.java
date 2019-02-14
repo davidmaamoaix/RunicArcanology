@@ -22,8 +22,8 @@ public class StandardBlockBase extends Block implements Registrable {
 	public StandardBlockBase(String name, Material material, List<String> tooltip) {
 		super(material);
 		this.name = name;
-		this.setUnlocalizedName(name);
 		this.setRegistryName(name);
+		this.setUnlocalizedName(this.getRegistryName().toString());
 		RABlocks.addBlock(name, this);
 		if (tooltip == null) RAItems.addItem(name, new ItemBlock(this).setRegistryName(name));
 		else /* Add custom ItemBlock */;
