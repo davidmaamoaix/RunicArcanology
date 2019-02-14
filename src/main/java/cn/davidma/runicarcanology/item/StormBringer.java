@@ -6,10 +6,13 @@ import java.util.Map;
 
 import com.google.common.base.Predicates;
 
+import cn.davidma.runicarcanology.entity.StormBringerEntityItem;
 import cn.davidma.runicarcanology.item.base.StandardItemBase;
 import cn.davidma.runicarcanology.util.MathHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -24,6 +27,7 @@ public class StormBringer extends StandardItemBase {
 	
 	public StormBringer(String name) {
 		super(name);
+		this.setFull3D();
 		this.setMaxStackSize(1);
 	}
 	
@@ -37,10 +41,20 @@ public class StormBringer extends StandardItemBase {
 			player.addVelocity(dir.x * FORCE, dir.y * FORCE * 0.8, dir.z * FORCE);
 		}
 		
-		if (!world.isRemote) {
-			
-		}
-		
 		return super.onItemRightClick(world, player, hand);
+	}
+	
+	@Override
+	public boolean hasCustomEntity(ItemStack stack) {
+		return true;
+	}
+	
+	@Override
+	public Entity createEntity(World world, Entity location, ItemStack stack) {
+		Entity entity = new StormBringerEntityItem(world, location.posX, location.posY, location.posZ, stack);
+		entity.motionX = location.motionX;
+		entity.motionY = location.motionY;
+		entity.motionZ = location.motionZ;
+		return entity;
 	}
 }
